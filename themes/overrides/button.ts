@@ -1,33 +1,46 @@
-import { Theme } from '@mui/material/styles'
+import { ThemeMode } from '@/config'
+import { PaletteThemeProps } from '@/types/theme'
+import { alpha } from '@mui/material/styles'
+import ThemeOption from '../theme'
 
-export default function Button(theme: Theme) {
+export default function Button(mode: ThemeMode) {
+  const paletteColor: PaletteThemeProps = ThemeOption(mode)
   return {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
-          textTransform: 'none',
-          padding: theme.spacing(1.2, 2.5),
           fontWeight: 600,
+          borderRadius: 8,
+          textTransform: 'none' as const,
         },
         containedPrimary: {
-          backgroundColor: theme.palette.primary.main,
-          color: theme.palette.primary.contrastText,
+          // Gold button → black text
+          backgroundColor: paletteColor.primary.main,
+          color: '#121212',
           '&:hover': {
-            backgroundColor: theme.palette.primary.dark,
+            backgroundColor: paletteColor.primary.dark,
           },
         },
-        outlinedSecondary: {
-          borderColor: theme.palette.secondary.main,
-          color: theme.palette.secondary.main,
+        containedSecondary: {
+          // Black button → gold text
+          backgroundColor: paletteColor.secondary.darker,
+          color: paletteColor.primary.main,
           '&:hover': {
-            borderColor: theme.palette.secondary.dark,
-            backgroundColor: theme.palette.secondary.light,
+            backgroundColor: '#000',
           },
         },
-      },
-      defaultProps: {
-        disableRipple: true,
+        outlinedPrimary: {
+          // Outline gold → gold text
+          borderColor: paletteColor.primary.main,
+          color: paletteColor.primary.main,
+          '&:hover': {
+            backgroundColor: alpha(paletteColor.primary.main, 0.08),
+          },
+        },
+        textPrimary: {
+          // Text button (primary) → gold text
+          color: paletteColor.primary.main,
+        },
       },
     },
   }

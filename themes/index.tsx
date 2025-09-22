@@ -5,12 +5,12 @@ import Palette from './palette'
 import {
   createTheme,
   StyledEngineProvider,
-  Theme,
   ThemeProvider,
+  ThemeOptions,
+  Theme,
 } from '@mui/material/styles'
-import { TypographyVariantsOptions } from '@mui/material/styles'
+import { CssBaseline } from '@mui/material'
 import Typography from './typography'
-import { ThemeOptions } from '@mui/material/styles'
 import ComponentsOverrides from './overrides'
 import useConfig from '@/hooks/useConfig'
 
@@ -22,25 +22,18 @@ export default function ThemeCustomization({
   const { mode, themeDirection, fontFamily } = useConfig()
   let themeMode: ThemeMode = mode
 
+  // Handle auto mode (system preference)
   if (themeMode === ThemeMode.AUTO) {
     const autoMode = getWindowScheme()
-    if (autoMode) {
-      themeMode = ThemeMode.DARK
-    } else {
-      themeMode = ThemeMode.LIGHT
-    }
+    themeMode = autoMode ? ThemeMode.DARK : ThemeMode.LIGHT
   }
 
-  const theme: Theme = useMemo<Theme>(() => Palette(themeMode), [themeMode])
+  // Build theme with memoization
+  const theme: Theme = useMemo(() => {
+    const basePalette = Palette(themeMode)
+    const baseTypography = Typography(themeMode, fontFamily)
 
-  const themeTypography: TypographyVariantsOptions =
-    useMemo<TypographyVariantsOptions>(
-      () => Typography(themeMode, fontFamily),
-      [themeMode, fontFamily]
-    )
-
-  const themeOptions: ThemeOptions = useMemo(
-    () => ({
+    const themeOptions: ThemeOptions = {
       breakpoints: {
         values: {
           xs: 0,
@@ -58,21 +51,23 @@ export default function ThemeCustomization({
           paddingBottom: 8,
         },
       },
-      palette: theme.palette,
+      palette: basePalette.palette,
       shape: {
         borderRadius: 8,
       },
-      typography: themeTypography,
-    }),
-    [themeDirection, theme, themeTypography]
-  )
+      typography: baseTypography,
+      components: ComponentsOverrides(themeMode),
+    }
 
-  const themes: Theme = createTheme(themeOptions)
-  themes.components = ComponentsOverrides(themes)
+    return createTheme(themeOptions)
+  }, [themeMode, themeDirection, fontFamily])
 
   return (
     <StyledEngineProvider>
-      <ThemeProvider theme={themes}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        {children}
+      </ThemeProvider>
     </StyledEngineProvider>
   )
 }

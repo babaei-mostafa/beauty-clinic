@@ -9,6 +9,7 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import InputLabel from '@mui/material/InputLabel'
 import { useLoginMutation } from '@/hooks/react-query/auth/authHooks'
+import FancyButton from '../UI/fancy-button'
 
 export default function LoginForm() {
   const [loginBody, setLoginBody] = useState({ email: '', password: '' })
@@ -65,6 +66,11 @@ export default function LoginForm() {
           <Button type="submit" variant="contained" disabled={isPending}>
             Login
           </Button>
+        </Grid>
+        <Grid size={12} sx={{mx: 5}}>
+          <FancyButton type="submit" variant="contained" disabled={isPending}>
+            Login
+          </FancyButton>
         </Grid>
       </Grid>
     </form>
