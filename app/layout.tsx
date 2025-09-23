@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
 
+import Container from '@mui/material/Container'
+
 import './globals.css'
-import ProviderWrapper from '../components/layout/provider-wrapper'
+import ProviderWrapper from '@/components/layout/provider-wrapper'
 import Footer from '@/components/footer/footer'
 import ThemeModeBtn from '@/components/theme-mode-btn'
 import PageWrapper from '@/components/layout/page-wrapper'
+import Header from '@/components/navbar/header'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -21,9 +24,11 @@ export default function RootLayout({
       <body>
         <ProviderWrapper>
           <PageWrapper>
-            {children}
-            <ThemeModeBtn />
-            <Footer />
+            <div className="flex min-h-screen flex-col">
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
           </PageWrapper>
         </ProviderWrapper>
       </body>

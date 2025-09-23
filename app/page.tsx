@@ -1,9 +1,9 @@
-import Counter from '@/components/counter'
+import Testimonials from '@/components/home/testimonials/testimonials'
 
 export default function Home() {
   return (
     <div className="w-full">
-      Home
+      <Testimonials />
     </div>
   )
 }

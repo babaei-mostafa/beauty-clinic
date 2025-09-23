@@ -1,20 +1,21 @@
-import Button from '@mui/material/Button'
-import { styled } from '@mui/material/styles'
+import { Theme } from '@mui/material/styles'
 
-const FancyButton = styled(Button)(({ theme }) => ({
-  position: 'relative',
+export const fancyStyle = (theme: Theme) => ({
+  position: 'relative' as const,
   zIndex: 1,
-  overflow: 'visible',
+  overflow: 'visible' as const,
   borderRadius: 0,
   fontSize: 11,
   paddingTop: theme.spacing(0.5),
   paddingBottom: theme.spacing(0.5),
   paddingLeft: theme.spacing(0.8),
   paddingRight: theme.spacing(0.8),
-  boxShadow: 'none', // remove shadow if variant=contained
+  backgroundColor: theme.palette.primary.main,
+  color: '#000',
+  boxShadow: 'none' as const, // remove shadow if variant=contained
   '&::before': {
     content: '""',
-    position: 'absolute',
+    position: 'absolute' as const,
     top: 3,
     bottom: -3,
     left: 3,
@@ -34,6 +35,4 @@ const FancyButton = styled(Button)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main, // same as normal
     boxShadow: 'none', // remove shadow if variant=contained
   },
-}))
-
-export default FancyButton
+})
