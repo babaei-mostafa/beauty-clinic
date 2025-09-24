@@ -9,8 +9,8 @@ import Toolbar from '@mui/material/Toolbar'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useTheme } from '@mui/material'
 
-import FancyButton from '@/components/UI/fancy-btn/fancy-btn'
-import FancyIconButton from '@/components/UI/fancy-btn/fancy-icon-btn'
+import FancyButton from '@/components/UI/button/fancy-btn'
+import FancyIconButton from '@/components/UI/button/fancy-icon-btn'
 import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
 
 // ====================|| HEADER ||==================== //
@@ -23,7 +23,7 @@ export default function Header() {
       elevation={0}
       sx={{
         zIndex: (theme) => theme.zIndex.drawer + 1,
-        borderBottom: '1px solid',
+        borderBottom: '2px solid',
         borderColor: theme.palette.primary.main,
         bgcolor: theme.palette.background.default,
       }}
