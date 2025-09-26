@@ -13,7 +13,7 @@ import { useTheme } from '@mui/material'
 import FancyButton from '@/components/UI/button/fancy-btn'
 import FancyIconButton from '@/components/UI/button/fancy-icon-btn'
 import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
-import MainDrawer from './drawer'
+import MainDrawer from './main-drawer'
 
 // ====================|| HEADER ||==================== //
 
