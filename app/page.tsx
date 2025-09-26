@@ -1,9 +1,9 @@
-import Testimonials from '@/components/home/testimonials/testimonials'
+import HomeComponent from '@/components/home/home'
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="w-full">
-      <Testimonials />
+      <HomeComponent />
     </div>
   )
 }

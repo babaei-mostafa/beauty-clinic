@@ -4,3 +4,23 @@
 * {
   transition: background-color 0.3s ease, color 0.1s ease;
 }
+
+.home-slider .swiper-pagination-bullet,
+.testimonials-slider .swiper-pagination-bullet,
+.before-after-slider .swiper-pagination-bullet {
+  background-color: #000;
+  opacity: 0.5;
+  width: 8px;
+  height: 8px;
+  transform: scale(0.7);
+}
+
+.home-slider .swiper-pagination-bullet-active,
+.testimonials-slider .swiper-pagination-bullet-active,
+.before-after-slider .swiper-pagination-bullet-active {
+  background-color: #fff;
+  width: 20px;
+  border-radius: 20px;
+  opacity: 1;
+  transform: scale(0.9);
+}
