@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -12,17 +13,19 @@ import { useTheme } from '@mui/material'
 import FancyButton from '@/components/UI/button/fancy-btn'
 import FancyIconButton from '@/components/UI/button/fancy-icon-btn'
 import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
+import MainDrawer from './drawer'
 
 // ====================|| HEADER ||==================== //
 
 export default function Header() {
   const theme = useTheme()
+  const [open, setOpen] = useState(false)
   return (
     <AppBar
       position="sticky"
       elevation={0}
       sx={{
-        zIndex: (theme) => theme.zIndex.drawer + 1,
+        zIndex: (theme) => theme.zIndex.drawer,
         borderBottom: '2px solid',
         borderColor: theme.palette.primary.main,
         bgcolor: theme.palette.background.default,
@@ -35,7 +38,7 @@ export default function Header() {
           alignItems="center"
           sx={{ width: '100%' }}
         >
-          <FancyIconButton>
+          <FancyIconButton onClick={() => setOpen(true)}>
             <MenuIcon fontSize="small" />
           </FancyIconButton>
           <Link href="/">
@@ -44,6 +47,7 @@ export default function Header() {
           <FancyButton>Login</FancyButton>
         </Stack>
       </Toolbar>
+      <MainDrawer open={open} setOpen={setOpen} />
     </AppBar>
   )
 }
