@@ -39,17 +39,18 @@ interface Props {
 export default function MainDrawer({ open, setOpen }: Props) {
   const theme = useTheme()
   const moreMd = useMediaQuery((theme) => theme.breakpoints.up('md'))
-  const [menuImage, setMenuImage] = useState(DEFAULT_MENU_IMG)
+  const [hoveredImage, setHoveredImage] = useState<StaticImageData | null>(null)
+
   const toggleDrawer = (newOpen: boolean) => {
     setOpen(newOpen)
   }
 
   const handleMouseEnter = (_e: MouseEvent, img: StaticImageData) => {
-    setMenuImage(img)
+    setHoveredImage(img)
   }
 
   const handleMouseLeave = () => {
-    setMenuImage(DEFAULT_MENU_IMG)
+    setHoveredImage(null)
   }
   const LeftDrawerContent = (
     <Box
@@ -109,27 +110,43 @@ export default function MainDrawer({ open, setOpen }: Props) {
       sx={{
         width: '50vw',
         height: '100%',
-        position: 'relative',
         overflow: 'hidden',
+        position: 'relative',
+        backgroundImage: `url(${DEFAULT_MENU_IMG.src})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
+      {/* Default background image */}
       <Box
-        key={menuImage.src} // forces re-render for animation
         sx={{
-          width: '100%',
-          height: '100%',
-          backgroundImage: `url(${menuImage.src})`,
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `url(${DEFAULT_MENU_IMG.src})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          opacity: 1,
-          transition: 'opacity 0.6s ease-in-out',
         }}
         role="menu"
         onClick={() => toggleDrawer(false)}
       ></Box>
+
+      {/* Overlay background images */}
+      {menuItems.map((item) => (
+        <Box
+          key={`menu-item-${item.id}-background-image`}
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url(${item.IMG.src})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: hoveredImage?.src === item.IMG.src ? 1 : 0,
+            transition: 'opacity 0.6s ease-in-out',
+          }}
+          role="menu"
+          onClick={() => toggleDrawer(false)}
+        ></Box>
+      ))}
     </Box>
   )
 
