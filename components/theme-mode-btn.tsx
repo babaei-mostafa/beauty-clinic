@@ -35,7 +35,7 @@ export default function ThemeModeBtn() {
   }
 
   return (
-    <div className="fixed bottom-10 left-10">
+    <div className="fixed bottom-10 left-10 z-20">
       <Button id="theme-mode-menu" onClick={handleClick}>
         <LightModeIcon />
       </Button>

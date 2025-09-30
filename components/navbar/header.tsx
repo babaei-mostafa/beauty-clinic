@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
+import Box from '@mui/material/Box'
 import AppBar from '@mui/material/AppBar'
 import Stack from '@mui/material/Stack'
 import Toolbar from '@mui/material/Toolbar'
@@ -32,20 +33,26 @@ export default function Header() {
       }}
     >
       <Toolbar>
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          sx={{ width: '100%' }}
-        >
+        <Box sx={{ position: 'fixed', top: 16, left: 18 }}>
           <FancyIconButton onClick={() => setOpen(true)}>
             <MenuIcon fontSize="small" />
           </FancyIconButton>
+        </Box>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            translate: '-50% -50%',
+          }}
+        >
           <Link href="/">
             <Image src={LOGO} width={70} height={70} alt="etoile-clinic-logo" />
           </Link>
+        </Box>
+        <Box sx={{ position: 'fixed', top: 16, right: 18 }}>
           <FancyButton>Login</FancyButton>
-        </Stack>
+        </Box>
       </Toolbar>
       <MainDrawer open={open} setOpen={setOpen} />
     </AppBar>

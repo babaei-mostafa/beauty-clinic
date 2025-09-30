@@ -77,6 +77,7 @@ export default function Testimonials() {
                 <Typography
                   sx={{ textAlign: 'justify' }}
                   className="line-clamp-9"
+                  variant='body1'
                 >
                   {testimonial.text}
                 </Typography>

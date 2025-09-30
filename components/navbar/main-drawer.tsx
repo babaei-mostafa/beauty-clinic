@@ -18,15 +18,16 @@ import TREATMENTS_MENU_IMG from '@/public/assets/images/menu-images/treatments.j
 import PROMOTIONS_MENU_IMG from '@/public/assets/images/menu-images/skin-care-2.jpg'
 import { useMediaQuery, useTheme } from '@mui/material'
 import { StaticImageData } from 'next/image'
+import Link from 'next/link'
 
 const menuItems = [
-  { id: 'home', title: 'Home', IMG: DEFAULT_MENU_IMG },
-  { id: 'skin-care', title: 'Skin Care', IMG: SKIN_MENU_IMG },
-  { id: 'treatments', title: 'Treatments', IMG: TREATMENTS_MENU_IMG },
-  { id: 'promotions', title: 'Promotions', IMG: PROMOTIONS_MENU_IMG },
-  { id: 'gallery', title: 'Gallery', IMG: SKIN_MENU_IMG },
-  { id: 'reviews', title: 'Reviews', IMG: SKIN_MENU_IMG },
-  { id: 'about-us', title: 'About Us', IMG: SKIN_MENU_IMG },
+  { id: 'home', title: 'Home', url: '/', IMG: DEFAULT_MENU_IMG },
+  { id: 'skin-care', title: 'Skin Care', url: '/', IMG: SKIN_MENU_IMG },
+  { id: 'treatments', title: 'Treatments', url: '/', IMG: TREATMENTS_MENU_IMG },
+  { id: 'promotions', title: 'Promotions', url: '/', IMG: PROMOTIONS_MENU_IMG },
+  { id: 'gallery', title: 'Gallery', url: '/', IMG: SKIN_MENU_IMG },
+  { id: 'reviews', title: 'Reviews', url: '/', IMG: SKIN_MENU_IMG },
+  { id: 'about-us', title: 'About Us', url: '/about', IMG: SKIN_MENU_IMG },
 ]
 
 interface Props {
@@ -52,9 +53,14 @@ export default function MainDrawer({ open, setOpen }: Props) {
   const handleMouseLeave = () => {
     setHoveredImage(null)
   }
+
   const LeftDrawerContent = (
     <Box
-      sx={{ width: moreMd ? '50vw' : 250 }}
+      sx={{
+        width: moreMd ? '50vw' : 250,
+        opacity: open ? 1 : 0,
+        transition: 'opacity 1.5s ease-in-out',
+      }}
       role="menu"
       onClick={() => toggleDrawer(false)}
     >
@@ -92,12 +98,14 @@ export default function MainDrawer({ open, setOpen }: Props) {
                   },
                 }}
               >
-                <ListItemText
-                  primary={title}
-                  primaryTypographyProps={{
-                    sx: { transition: 'color 0.3s ease' },
-                  }}
-                />
+                <Link href={item.url}>
+                  <ListItemText
+                    primary={title}
+                    primaryTypographyProps={{
+                      sx: { transition: 'color 0.3s ease' },
+                    }}
+                  />
+                </Link>
               </ListItem>
             )
           })}
@@ -117,6 +125,7 @@ export default function MainDrawer({ open, setOpen }: Props) {
         backgroundPosition: 'center',
       }}
     >
+      <div className="absolute inset-0 bg-black z-10 opacity-30"></div>
       {/* Default background image */}
       <Box
         sx={{

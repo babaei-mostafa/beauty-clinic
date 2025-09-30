@@ -6,6 +6,7 @@ import Container from '@mui/material/Container'
 import HomeSlider from './home-slider'
 import Testimonials from './testimonials'
 import BeforeAfterSlider from './before-after'
+import AboutComponent from './about'
 
 export default function HomeComponent() {
   return (
@@ -13,6 +14,8 @@ export default function HomeComponent() {
       <HomeSlider />
 
       <Container>
+        <AboutComponent />
+
         <Grid container spacing={4} sx={{ py: 8 }}>
           <Grid size={{ xs: 12, md: 6 }}>
             <BeforeAfterSlider />

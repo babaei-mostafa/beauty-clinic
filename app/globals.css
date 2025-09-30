@@ -5,6 +5,15 @@
   transition: background-color 0.3s ease, color 0.1s ease;
 }
 
+html {
+  overflow-x: hidden;
+}
+
+html,
+body {
+  line-height: 3 !important;
+}
+
 .home-slider .swiper-pagination-bullet,
 .testimonials-slider .swiper-pagination-bullet,
 .before-after-slider .swiper-pagination-bullet {
@@ -23,4 +32,29 @@
   border-radius: 20px;
   opacity: 1;
   transform: scale(0.9);
+}
+
+.fancy-image {
+  position: relative;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.fancy-image::before {
+  content: '';
+  position: absolute;
+  top: 3;
+  bottom: -3;
+  left: 3;
+  right: -3;
+  border: 1px solid yellow;
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.fancy-image:before:hover {
+  top: -5;
+  left: -5;
+  right: -5;
+  bottom: -5;
 }

@@ -11,7 +11,6 @@ import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
 import Image from 'next/image'
 import NewsLetterForm from './news-letter-form'
 import Socials from '@/components/common/socials'
-import LinkIconButton from '../UI/button/link-icon-btn'
 
 // ====================|| FOOTER ||==================== //
 
