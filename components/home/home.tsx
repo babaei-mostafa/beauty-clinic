@@ -7,6 +7,7 @@ import HomeSlider from './home-slider'
 import Testimonials from './testimonials'
 import BeforeAfterSlider from './before-after'
 import AboutComponent from './about'
+import OurServices from './our-services'
 
 export default function HomeComponent() {
   return (
@@ -15,6 +16,7 @@ export default function HomeComponent() {
 
       <Container>
         <AboutComponent />
+        <OurServices />
 
         <Grid container spacing={4} sx={{ py: 8 }}>
           <Grid size={{ xs: 12, md: 6 }}>

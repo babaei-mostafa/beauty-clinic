@@ -1,31 +1,58 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import Stack from '@mui/material/Stack'
 
-import ABOUT_IMG from '@/public/assets/images/about/home-about.jpg'
+import OUR_SERVICES_IMG from '@/public/assets/images/home/our-services.jpg'
 import FancyImg from '@/components/UI/fancy-img'
+import { useTheme } from '@mui/material'
+
+const ourServicesData = [
+  { id: '1', part_one: 'Complimentary consultation', part_two: 'included.' },
+  {
+    id: '2',
+    part_one: 'Quick visites.',
+    part_two: 'treatment in under 20 minutes.',
+  },
+  { id: '3', part_one: 'Transparent pricing.', part_two: 'no hidden fees.' },
+  {
+    id: '4',
+    part_one: 'Visible results.',
+    part_two: 'Trailored to your needs.',
+  },
+  { id: '5', part_one: 'Professional care.', part_two: 'honesty guarenteed.' },
+]
 
 // ====================|| OUR SERVICES COMPONENT ||==================== //
 
 export default function OurServices() {
+  const theme = useTheme()
   return (
     <Grid container spacing={10} sx={{ py: 8 }}>
       <Grid size={{ xs: 12, md: 6 }}>
-        <FancyImg src={ABOUT_IMG.src} alt="etoile beauty clinic" />
+        <Typography component="h3" variant="h1">
+          We Offer
+        </Typography>
+        <List>
+          {ourServicesData.map((service) => (
+            <ListItem
+              key={`our-service-${service.id}`}
+              divider
+              sx={{ paddingLeft: 0 }}
+            >
+              <Typography component="p">
+                <span className={`text-[${theme.palette.primary.main}]`}>
+                  {service.part_one}
+                </span>{' '}
+                {service.part_two}
+              </Typography>
+            </ListItem>
+          ))}
+        </List>
       </Grid>
       <Grid size={{ xs: 12, md: 6 }}>
-        <Typography variant="h1" sx={{ textAlign: 'center' }}>
-          Étoile Clinic
-        </Typography>
-        <Typography
-          sx={{ lineHeight: 2, fontSize: '1.2rem', textAlign: 'justify' }}
-        >
-          At Étoile Clinic, we specialize in enhancing your natural beauty with
-          safe, personalized, and advanced treatments. Our expert team combines
-          medical expertise with the latest technology to provide skincare,
-          aesthetics, and wellness solutions tailored to your unique needs. We
-          are committed to helping you look and feel your best in a relaxing and
-          professional environment.
-        </Typography>
+        <FancyImg src={OUR_SERVICES_IMG.src} alt="etoile beauty clinic" />
       </Grid>
     </Grid>
   )

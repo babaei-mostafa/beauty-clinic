@@ -17,7 +17,7 @@ export default function AboutComponent() {
           Étoile Clinic
         </Typography>
         <Typography
-          sx={{ lineHeight: 2, fontSize: '1.2rem', textAlign: 'justify' }}
+          sx={{ lineHeight: 2, fontSize: '1.2rem', textAlign: 'justify', mt: 4 }}
         >
           At Étoile Clinic, we specialize in enhancing your natural beauty with
           safe, personalized, and advanced treatments. Our expert team combines
