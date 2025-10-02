@@ -25,6 +25,7 @@ const menuItems = [
   { id: 'skin-care', title: 'Skin Care', url: '/', IMG: SKIN_MENU_IMG },
   { id: 'treatments', title: 'Treatments', url: '/', IMG: TREATMENTS_MENU_IMG },
   { id: 'promotions', title: 'Promotions', url: '/', IMG: PROMOTIONS_MENU_IMG },
+  { id: 'blog', title: 'Blog', url: '/blog', IMG: SKIN_MENU_IMG },
   { id: 'gallery', title: 'Gallery', url: '/', IMG: SKIN_MENU_IMG },
   { id: 'reviews', title: 'Reviews', url: '/', IMG: SKIN_MENU_IMG },
   { id: 'about-us', title: 'About Us', url: '/about', IMG: SKIN_MENU_IMG },
@@ -85,7 +86,7 @@ export default function MainDrawer({ open, setOpen }: Props) {
             </Typography>
           </ListItem>
           {menuItems.map((item) => {
-            const { id, title, IMG } = item
+            const { id, title, IMG, url } = item
             return (
               <ListItem
                 key={`mein-menu-item-${id}`}
@@ -98,7 +99,7 @@ export default function MainDrawer({ open, setOpen }: Props) {
                   },
                 }}
               >
-                <Link href={item.url}>
+                <Link href={url}>
                   <ListItemText
                     primary={title}
                     primaryTypographyProps={{

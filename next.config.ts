@@ -4,6 +4,8 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       { hostname: 'dkstatics-public.digikala.com' },
+      { hostname: 'media.post.rvohealth.io' },
+      { hostname: 'www.healthline.com' },
     ],
   },
 }

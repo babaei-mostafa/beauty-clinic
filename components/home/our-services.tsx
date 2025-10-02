@@ -2,7 +2,6 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
-import Stack from '@mui/material/Stack'
 
 import OUR_SERVICES_IMG from '@/public/assets/images/home/our-services.jpg'
 import FancyImg from '@/components/UI/fancy-img'
@@ -30,22 +29,35 @@ export default function OurServices() {
   const theme = useTheme()
   return (
     <Grid container spacing={10} sx={{ py: 8 }}>
-      <Grid size={{ xs: 12, md: 6 }}>
+      <Grid size={{ xs: 12, md: 6 }} sx={{ textAlign: 'center' }}>
         <Typography component="h3" variant="h1">
           We Offer
         </Typography>
-        <List>
+        <List
+          sx={{
+            display: 'inline-block',
+            width: 'max-content',
+            textAlign: 'center',
+          }}
+        >
           {ourServicesData.map((service) => (
             <ListItem
               key={`our-service-${service.id}`}
               divider
-              sx={{ paddingLeft: 0 }}
+              sx={{
+                paddingLeft: 0,
+                display: 'block',
+              }}
             >
-              <Typography component="p">
-                <span className={`text-[${theme.palette.primary.main}]`}>
-                  {service.part_one}
-                </span>{' '}
-                {service.part_two}
+              <Typography component="p" variant="h4">
+                {service.part_one}{' '}
+                <Typography
+                  component="span"
+                  variant="h4"
+                  sx={{ color: theme.palette.text.primary, fontWeight: 300 }}
+                >
+                  {service.part_two}
+                </Typography>
               </Typography>
             </ListItem>
           ))}
