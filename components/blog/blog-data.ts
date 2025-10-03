@@ -1,6 +1,6 @@
-import { Blog } from "@/types/blog";
+import { IArticle } from '@/types/blog'
 
-export const blogData: Blog[] = [
+export const blogData: IArticle[] = [
   {
     id: '1',
     title: 'How to Support Your Bodys Biggest Organ (the Skin)',

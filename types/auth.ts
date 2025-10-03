@@ -10,3 +10,5 @@ export interface SignupReq {
   first_name: string
   last_name: string
 }
+
+

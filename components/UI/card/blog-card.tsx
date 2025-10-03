@@ -1,19 +1,16 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
-import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import CardActionArea from '@mui/material/CardActionArea'
 
-import FancyImg from '@/components/UI/fancy-img'
-import { Blog } from '@/types/blog'
+import { IArticle } from '@/types/blog'
 
 // ====================|| BLOG CARD ||==================== //
 
-export default function BlogCard({ image, title, id }: Blog) {
+export default function BlogCard({ image, title, id }: IArticle) {
   return (
     <Card
       sx={{
