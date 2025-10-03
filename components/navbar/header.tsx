@@ -6,7 +6,6 @@ import Image from 'next/image'
 
 import Box from '@mui/material/Box'
 import AppBar from '@mui/material/AppBar'
-import Stack from '@mui/material/Stack'
 import Toolbar from '@mui/material/Toolbar'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useTheme } from '@mui/material'
@@ -15,12 +14,17 @@ import FancyButton from '@/components/UI/button/fancy-btn'
 import FancyIconButton from '@/components/UI/button/fancy-icon-btn'
 import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
 import MainDrawer from './main-drawer'
+import { usePathname } from 'next/navigation'
 
 // ====================|| HEADER ||==================== //
 
 export default function Header() {
+  const pathname = usePathname()
   const theme = useTheme()
   const [open, setOpen] = useState(false)
+
+  if (pathname.includes('/auth')) return null
+
   return (
     <AppBar
       position="sticky"
@@ -51,7 +55,9 @@ export default function Header() {
           </Link>
         </Box>
         <Box sx={{ position: 'fixed', top: 16, right: 18 }}>
-          <FancyButton>Login</FancyButton>
+          <FancyButton LinkComponent={Link} href="/book">
+            Book Now
+          </FancyButton>
         </Box>
       </Toolbar>
       <MainDrawer open={open} setOpen={setOpen} />

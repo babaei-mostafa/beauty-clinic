@@ -11,11 +11,16 @@ import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
 import Image from 'next/image'
 import NewsLetterForm from './news-letter-form'
 import Socials from '@/components/common/socials'
+import { usePathname } from 'next/navigation'
 
 // ====================|| FOOTER ||==================== //
 
 export default function Footer() {
+  const pathname = usePathname()
   const theme = useTheme()
+
+  if (pathname.includes('/auth')) return null
+
   return (
     <footer>
       <Box
@@ -64,7 +69,7 @@ export default function Footer() {
                 </Stack>
               </Grid>
             </Grid>
-            <Grid container spacing={{xs: 2, sm: 4}}>
+            <Grid container spacing={{ xs: 2, sm: 4 }}>
               <Grid size={{ xs: 12, sm: 4 }}>
                 <Typography variant="caption">© 2025 Étoile Clinic</Typography>
               </Grid>
