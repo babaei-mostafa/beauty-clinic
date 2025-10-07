@@ -10,6 +10,9 @@ interface Props {
   label: string
   disabled?: boolean
   placeholder?: string
+  multiline?: boolean
+  rows?: number
+  fullwidth?: boolean
   inputType?: string
   isNumber?: boolean
 }
@@ -21,6 +24,9 @@ export default function CustomTextField({
   label,
   disabled,
   placeholder,
+  multiline,
+  rows = 2,
+  fullwidth = false,
   inputType = 'text',
   isNumber = false,
 }: Props) {
@@ -48,7 +54,10 @@ export default function CustomTextField({
               {...field}
               disabled={disabled}
               variant="outlined"
-              placeholder={placeholder || `Please enter ${label}`}
+              placeholder={placeholder || `Enter ${label}`}
+              multiline={multiline}
+              rows={rows}
+              fullWidth={fullwidth}
               type={inputType}
               value={field.value || ''}
               onChange={handleChange}
