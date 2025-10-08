@@ -8,7 +8,7 @@ import StepButton from '@mui/material/StepButton'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
-interface StepItem {
+export interface StepItem {
   title: string
   component: ReactNode
 }

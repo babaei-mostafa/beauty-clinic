@@ -9,10 +9,11 @@ import { Formik } from 'formik'
 
 import { bookInitialValues } from './values'
 import FancyButton from '../UI/button/fancy-btn'
-import NonLinearStepper from '../form/stepper'
 import PersonalInfoStep from './personal-info'
 import AppoinmentDetailsStep from './appoinment'
 import AdditionalInformationStep from './additional-info'
+import PaymentStep from './payment'
+import LinearStepper from '../form/linear-stepper'
 
 // ====================|| BOOK FORM ||==================== //
 
@@ -29,9 +30,9 @@ export default function BookForm() {
             console.log(values)
           }}
         >
-          {({ handleSubmit }) => (
+          {({ handleSubmit, values }) => (
             <form onSubmit={handleSubmit}>
-              <NonLinearStepper
+              <LinearStepper
                 steps={[
                   {
                     title: 'Personal Information',
@@ -43,7 +44,11 @@ export default function BookForm() {
                   },
                   {
                     title: 'Client Notes',
-                    component: <AdditionalInformationStep />,
+                    component: <AdditionalInformationStep values={values} />,
+                  },
+                  {
+                    title: 'Payment / Confirmation',
+                    component: <PaymentStep />,
                   },
                 ]}
               />

@@ -1,7 +1,12 @@
-export const bookInitialValues = {
+import { IBookReq } from '@/types/book'
+
+export const bookInitialValues: IBookReq = {
   first_name: '',
   last_name: '',
   email: '',
   phone: '',
-  description: '',
+  note: '',
+  is_allergy: false,
+  allergy: '',
+  terms: false,
 }
