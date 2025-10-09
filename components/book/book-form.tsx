@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from 'react'
+
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Container from '@mui/material/Container'
@@ -15,9 +17,30 @@ import AdditionalInformationStep from './additional-info'
 import PaymentStep from './payment'
 import LinearStepper from '../form/linear-stepper'
 
+const getSteps = (values: any) => [
+  {
+    title: 'Personal Information',
+    component: <PersonalInfoStep />,
+  },
+  {
+    title: 'Appoinment Preferences',
+    component: <AppoinmentDetailsStep />,
+  },
+  {
+    title: 'Client Notes',
+    component: <AdditionalInformationStep values={values} />,
+  },
+  {
+    title: 'Payment / Confirmation',
+    component: <PaymentStep />,
+  },
+]
+
 // ====================|| BOOK FORM ||==================== //
 
 export default function BookForm() {
+  const [activeStep, setActiveStep] = useState(0)
+
   return (
     <Container sx={{ py: 8 }}>
       <Typography variant="h3" sx={{ textAlign: 'center' }}>
@@ -33,32 +56,16 @@ export default function BookForm() {
           {({ handleSubmit, values }) => (
             <form onSubmit={handleSubmit}>
               <LinearStepper
-                steps={[
-                  {
-                    title: 'Personal Information',
-                    component: <PersonalInfoStep />,
-                  },
-                  {
-                    title: 'Appoinment Preferences',
-                    component: <AppoinmentDetailsStep />,
-                  },
-                  {
-                    title: 'Client Notes',
-                    component: <AdditionalInformationStep values={values} />,
-                  },
-                  {
-                    title: 'Payment / Confirmation',
-                    component: <PaymentStep />,
-                  },
-                ]}
+                steps={getSteps(values)}
+                activeStep={activeStep}
+                setActiveStep={setActiveStep}
               />
 
-              <Grid container spacing={2}></Grid>
-              <Grid container spacing={2}>
+              {activeStep === getSteps(values).length - 1 && (
                 <Grid size={{ xs: 12, md: 4 }}>
                   <FancyButton type="submit">Submit</FancyButton>
                 </Grid>
-              </Grid>
+              )}
             </form>
           )}
         </Formik>

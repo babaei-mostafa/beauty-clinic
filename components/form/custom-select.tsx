@@ -62,19 +62,18 @@ export default function CustomSelect({
               </MenuItem>
             )}
             {options.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
+              <MenuItem key={option.fieldName} value={option.value}>
                 {option.label}
               </MenuItem>
             ))}
-            {meta.touched && meta.error && (
-              <FormHelperText
-                error={meta.touched && !!meta.error}
-                sx={{ fontWeight: 'bold' }}
-              >
-                {meta.error}
-              </FormHelperText>
-            )}
           </Select>
+          {meta.touched && meta.error && (
+            <FormHelperText
+              error={meta.touched && !!meta.error}
+            >
+              {meta.error}
+            </FormHelperText>
+          )}
         </Stack>
       )}
     </Field>

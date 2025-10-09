@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment, ReactNode, useState } from 'react'
+import { Dispatch, Fragment, ReactNode, SetStateAction, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography'
 
 import { useFormikContext } from 'formik'
 import { toFormikValidationSchema } from 'zod-formik-adapter'
-import { stepSchemas } from '../book/validation'
+import { stepSchemas } from '@/lib/schemas/book'
 
 export interface StepItem {
   title: string
@@ -21,13 +21,23 @@ export interface StepItem {
 
 interface LinearStepperProps {
   steps: StepItem[]
+  activeStep: number
+  setActiveStep: Dispatch<SetStateAction<number>>
+  showFinishBtn?: boolean
 }
 
 // ====================|| LINEAR STEPPER ||==================== //
 
-export default function LinearStepper({ steps, ...props }: LinearStepperProps) {
-  const { values, validateForm, setErrors } = useFormikContext<any>()
-  const [activeStep, setActiveStep] = useState(0)
+export default function LinearStepper({
+  steps,
+  activeStep,
+  setActiveStep,
+  showFinishBtn,
+  ...props
+}: LinearStepperProps) {
+  const { values, validateForm, setErrors, setFieldTouched } =
+    useFormikContext<any>()
+
   const [skipped, setSkipped] = useState(new Set<number>())
 
   const isStepOptional = (step: number) => {
@@ -56,6 +66,12 @@ export default function LinearStepper({ steps, ...props }: LinearStepperProps) {
         ])
       )
       setErrors(errors)
+
+      // Mark all invalid fields as touched so Formik shows the messages
+      Object.keys(errors).forEach((key) => {
+        setFieldTouched(key, true, false)
+      })
+
       return // stop here, don’t go to next step
     }
 
@@ -135,9 +151,13 @@ export default function LinearStepper({ steps, ...props }: LinearStepperProps) {
                 Skip
               </Button>
             )}
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
+            {showFinishBtn ? (
+              <Button onClick={handleNext}>
+                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              </Button>
+            ) : activeStep < steps.length - 1 ? (
+              <Button onClick={handleNext}>Next</Button>
+            ) : null}
           </Box>
         </Fragment>
       )}

@@ -1,10 +1,21 @@
 import { z } from 'zod'
 
+import { EMAIL_PATTERN, PHONE_PATTERN, NAME_PATTERN } from '@/lib/patterns'
+
 // Step 1: Personal Info
 export const personalInfoSchema = z.object({
-  fullname: z.string().min(2, 'Full name is required'),
-  phone: z.string().min(5, 'Phone number is required'),
-  email: z.string().email('Invalid email'),
+  fullname: z
+    .string()
+    .nonempty('Full name is required.')
+    .regex(NAME_PATTERN, 'Full name contains invalid characters.'),
+  phone: z
+    .string()
+    .nonempty('Phone is required.')
+    .regex(PHONE_PATTERN, 'Invalid phone number format.'),
+  email: z
+    .string()
+    .regex(EMAIL_PATTERN, 'Invalid email address.')
+    .or(z.literal('')),
   contact_method: z.string().nonempty('Please select a contact method'),
 })
 
