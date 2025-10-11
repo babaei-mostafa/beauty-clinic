@@ -1,4 +1,4 @@
-import { authService } from '@/services/authService'
+import { authService } from '@/services/auth-service'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function signup(req: NextRequest) {

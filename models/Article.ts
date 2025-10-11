@@ -8,6 +8,7 @@ const articleSchema = new Schema(
     image: { type: String, required: true },
     author: { type: Schema.Types.ObjectId, ref: 'User' },
     slug: { type: String, required: true, unique: true },
+    is_published: { type: Boolean, required: true },
     tags: [{ type: String }],
   },
   { timestamps: true }
