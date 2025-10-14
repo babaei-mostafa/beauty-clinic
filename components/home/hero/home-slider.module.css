@@ -1,0 +1,12 @@
+.bullet {
+  background-color: gray;
+  width: 10px;
+  height: 10px;
+  opacity: 0.5;
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+.bulletActive {
+  color: green;
+}
