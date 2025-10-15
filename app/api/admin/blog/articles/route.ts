@@ -1,10 +1,11 @@
-import { createArticle } from '@/controllers/blog-controller'
 import { NextRequest } from 'next/server'
+
+import { createArticle, getAdminArticles } from '@/controllers/blog-controller'
 
 export async function POST(req: NextRequest) {
   return createArticle(req)
 }
 
-export async function GET() {
-    return getAdminArticles()
+export async function GET(req: NextRequest) {
+    return getAdminArticles(req)
 }

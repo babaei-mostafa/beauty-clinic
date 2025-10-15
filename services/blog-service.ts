@@ -23,15 +23,19 @@ export const blogService = {
   }) {
     await connectDB()
 
-    const query: any = {}
+    console.log("is_pubmished: ", is_published)
+
+    let query: any = {}
 
     if (typeof is_published === 'boolean') {
       query.is_published = true
+    } else {
+      query = {}
     }
 
     const skip = (page - 1) * limit
-    const count = await Article.countDocuments({ is_published: false })
-    const articles = await Article.find({ is_published: false })
+    const count = await Article.countDocuments(query)
+    const articles = await Article.find(query)
       .populate('author', 'username first_name last_name')
       .sort({ createdAt: -1 })
       .skip(skip)

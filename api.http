@@ -1,0 +1,32 @@
+# ====================|| ADMIN API ||====================
+
+### Get articles list
+GET http://localhost:3000/api/admin/blog/articles
+Content-Type: application/json
+###
+
+### Crete a new article
+POST http://localhost:3000/api/admin/blog/articles
+Content-Type: application/json
+
+{
+    "title": "Published One",
+    "short_description": "this is the short description of the post: published one.",
+    "body": "this is the body of the post: published one.",
+    "image": "https://media.post.rvohealth.io/wp-content/uploads/2022/06/female-rubbing-sunscreen-on-skin-732-549-feature-thumb-732x549.jpg",
+    "is_published": true,
+    "slug": "published-one"
+}
+
+###
+
+# ====================|| PUBLIC USERS API ||====================
+
+### Get articles list
+GET http://localhost:3000/api/blog/articles
+Content-Type: application/json
+###
+
+
+
+
