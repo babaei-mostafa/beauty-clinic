@@ -33,9 +33,7 @@ export default function CustomTextField({
   return (
     <Field name={name}>
       {({ field, meta, form }: FieldProps) => {
-        const handleChange = (
-          e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-        ) => {
+        const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
           let inputValue = e.target.value
           if (isNumber) {
             inputValue = inputValue.replace(/\D/g, '')
@@ -44,10 +42,7 @@ export default function CustomTextField({
         }
         return (
           <Stack spacing={1}>
-            <InputLabel
-              disabled={disabled}
-              error={meta.touched && !!meta.error}
-            >
+            <InputLabel disabled={disabled} error={meta.touched && !!meta.error}>
               {label}
             </InputLabel>
             <TextField

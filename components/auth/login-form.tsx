@@ -1,20 +1,21 @@
 'use client'
 
-import { ChangeEvent, FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
+import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
-import Stack from '@mui/material/Stack'
+import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import InputLabel from '@mui/material/InputLabel'
+
+import { Formik } from 'formik'
 
 import { useLoginMutation } from '@/hooks/react-query/auth/authHooks'
-import FancyButton from '@/components/UI/button/fancy-btn'
+import { loginInitialValues } from './values'
+import CustomTextField from '../form/custom-tesxtfield'
+import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
+import CustomImage from '../UI/image/custom-image'
 
 export default function LoginForm() {
-  const [loginBody, setLoginBody] = useState({ email: '', password: '' })
-
   const router = useRouter()
 
   const { mutate: login, isPending } = useLoginMutation({
@@ -23,52 +24,57 @@ export default function LoginForm() {
     },
   })
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    key: string
-  ) => {
-    const inputValue = e.target.value
-    if (key === 'email') {
-      setLoginBody((prevState) => ({ ...prevState, email: inputValue }))
-    } else if (key === 'password') {
-      setLoginBody((prevState) => ({ ...prevState, password: inputValue }))
-    }
-  }
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log('login body: ', loginBody)
-    login(loginBody)
-  }
   return (
-    <form onSubmit={handleSubmit}>
-      <Grid container spacing={2}>
-        <Grid size={{ xs: 12, md: 3 }}>
-          <Stack spacing={1}>
-            <InputLabel>Email</InputLabel>
-            <TextField
-              type="text"
-              value={loginBody.email}
-              onChange={(e) => handleChange(e, 'email')}
-            />
-          </Stack>
-        </Grid>
-        <Grid size={{ xs: 12, md: 3 }}>
-          <Stack spacing={1}>
-            <InputLabel>Passwrod</InputLabel>
-            <TextField
-              type="password"
-              value={loginBody.password}
-              onChange={(e) => handleChange(e, 'password')}
-            />
-          </Stack>
-        </Grid>
-        <Grid size={12} sx={{ mx: 5 }}>
-          <FancyButton type="submit" variant="contained" disabled={isPending}>
-            Login
-          </FancyButton>
-        </Grid>
-      </Grid>
-    </form>
+    <Box
+      sx={{
+        height: '100vh',
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Formik
+        initialValues={loginInitialValues}
+        onSubmit={(values) => {
+          console.log(values)
+        }}
+      >
+        {({ handleSubmit }) => (
+          <form onSubmit={handleSubmit}>
+            <Paper
+              sx={{
+                maxWidth: 600,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 4,
+                p: 4,
+              }}
+            >
+              <CustomImage src={LOGO.src} alt="etoile-beauty-clinic-logo" objectFit="contain" />
+              <Grid container spacing={2}>
+                <Grid size={{ xs: 12 }}>
+                  <CustomTextField name="email" label="Email" />
+                </Grid>
+                <Grid size={{ xs: 12 }}>
+                  <CustomTextField name="password" label="Password" inputType="password" />
+                </Grid>
+                <Grid size={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    disabled={isPending}
+                    sx={{ width: '100%' }}
+                  >
+                    Login
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          </form>
+        )}
+      </Formik>
+    </Box>
   )
 }

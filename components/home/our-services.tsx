@@ -4,7 +4,7 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 
 import OUR_SERVICES_IMG from '@/public/assets/images/home/our-services.jpg'
-import FancyImg from '@/components/UI/fancy-img'
+import FancyImg from '@/components/UI/image/fancy-img'
 import { useTheme } from '@mui/material'
 
 const ourServicesData = [

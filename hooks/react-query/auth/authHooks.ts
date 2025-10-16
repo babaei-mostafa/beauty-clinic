@@ -1,15 +1,15 @@
-import { LoginReq, SignupReq } from '@/types/auth'
+import { ILoginReq, SignupReq } from '@/types/auth'
 import { MutationOptions, useMutation } from '@tanstack/react-query'
 import { login, signup } from './authApi'
 import { AxiosError } from 'axios'
 
 export const useLoginMutation = (
-  options?: MutationOptions<any, AxiosError, LoginReq>
+  options?: MutationOptions<any, AxiosError, ILoginReq>
 ) => {
   const mutationKey = [`/auth/login`]
-  return useMutation<any, AxiosError, LoginReq>({
+  return useMutation<any, AxiosError, ILoginReq>({
     mutationKey,
-    mutationFn: (body: LoginReq) => login(body),
+    mutationFn: (body: ILoginReq) => login(body),
     ...options,
   })
 }

@@ -23,8 +23,6 @@ export const blogService = {
   }) {
     await connectDB()
 
-    console.log("is_pubmished: ", is_published)
-
     let query: any = {}
 
     if (typeof is_published === 'boolean') {

@@ -5,7 +5,7 @@ GET http://localhost:3000/api/admin/blog/articles
 Content-Type: application/json
 ###
 
-### Crete a new article
+### Create a new article
 POST http://localhost:3000/api/admin/blog/articles
 Content-Type: application/json
 

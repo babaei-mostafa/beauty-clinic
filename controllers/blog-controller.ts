@@ -1,8 +1,19 @@
-import { blogService } from '@/services/blog-service'
 import { NextRequest, NextResponse } from 'next/server'
+
+import { blogService } from '@/services/blog-service'
+import { getPagination } from '@/utils/getPagination'
+import { verifyAccessToken } from '@/lib/jwt'
+import { requireAdminAuth } from '@/utils/require-auth'
 
 export async function createArticle(req: NextRequest) {
   try {
+    
+    // ---- AUTH GUARD START ----
+    const authResult = requireAdminAuth(req)
+
+    if (authResult instanceof NextResponse) return authResult
+    // ---- AUTH GUARD END ----
+
     const body = await req.json()
     const article = await blogService.createArticle(body)
     return NextResponse.json(article, { status: 201 })
@@ -13,9 +24,7 @@ export async function createArticle(req: NextRequest) {
 
 export async function getArticles(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url)
-    const page = parseInt(searchParams.get('page') || '1', 10)
-    const limit = parseInt(searchParams.get('limit') || '12', 10)
+    const {page, limit} = getPagination(req)
 
     const baseUrl = req.nextUrl.origin + req.nextUrl.pathname
 
@@ -34,9 +43,7 @@ export async function getArticles(req: NextRequest) {
 
 export async function getAdminArticles(req: NextRequest) {
   try {
-    const { searchParams } = new URL(req.url)
-    const page = parseInt(searchParams.get('page') || '1', 10)
-    const limit = parseInt(searchParams.get('limit') || '12', 10)
+    const {page, limit} = getPagination(req)
 
     const baseUrl = req.nextUrl.origin + req.nextUrl.pathname
 
