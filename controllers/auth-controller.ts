@@ -18,14 +18,14 @@ export async function login(req: NextRequest) {
 
     const res = NextResponse.json(user)
 
-    res.cookies.set('token', token, {
+    res.cookies.set('access_token', token, {
       httpOnly: true,
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
       maxAge: 60 * 60, // 1h
     })
 
-    res.cookies.set('refresh', refresh, {
+    res.cookies.set('refresh_token', refresh, {
       httpOnly: true,
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',

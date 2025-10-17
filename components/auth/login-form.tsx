@@ -20,7 +20,7 @@ export default function LoginForm() {
 
   const { mutate: login, isPending } = useLoginMutation({
     onSuccess: () => {
-      router.push('/')
+      router.push('/admin/dashboard')
     },
   })
 
@@ -37,7 +37,7 @@ export default function LoginForm() {
       <Formik
         initialValues={loginInitialValues}
         onSubmit={(values) => {
-          console.log(values)
+          login(values)
         }}
       >
         {({ handleSubmit }) => (

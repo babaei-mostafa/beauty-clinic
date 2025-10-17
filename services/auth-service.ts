@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 import User from '@/models/User'
 import { signAccessToken, signRefreshToken } from '@/lib/jwt'
 import { connectDB } from '@/lib/db'
+import { IUserDocument } from '@/types/user'
 
 export const authService = {
   async signup({
@@ -24,7 +25,7 @@ export const authService = {
     if (existing) throw new Error('Email already exists')
 
     const hashed = await bcrypt.hash(password, 10)
-    const user = await User.create({
+    const user: IUserDocument | null = await User.create({
       username,
       email,
       password: hashed,
@@ -33,18 +34,18 @@ export const authService = {
     })
 
     return {
-      id: user._id,
-      email: user.email,
-      username: user.username,
-      first_name: user.first_name,
-      last_name: user.last_name,
+      id: user?.password,
+      email: user?.email,
+      username: user?.username,
+      first_name: user?.first_name,
+      last_name: user?.last_name,
     }
   },
 
   async login({ email, password }: { email: string; password: string }) {
     await connectDB()
 
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email }).lean()
     if (!user) throw new Error('Invalid credentials')
 
     const match = await bcrypt.compare(password, user.password)
@@ -52,7 +53,7 @@ export const authService = {
       throw new Error('Invalid credentials')
     }
 
-    const token = signAccessToken({ userId: user._id })
+    const token = signAccessToken({ userId: user._id, role: user.role })
     const refresh = signRefreshToken({ userId: user._id })
 
     return {
