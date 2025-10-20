@@ -20,8 +20,8 @@ interface Props {
 export default function CustomImage({
   src,
   alt,
-  width = 100,
-  height = 100,
+  width = 80,
+  height = 80,
   borderRadius = '8px',
   objectFit = 'cover',
   fallbackSrc = '/assets/images/fallback-image.png',
