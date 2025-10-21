@@ -37,10 +37,7 @@ const client = axios.create({
 
 // --- Extend AxiosInstance with generics + skipAuth support ---
 export interface TypedAxiosInstance extends AxiosInstance {
-  get<T = any, R = AxiosResponse<T>>(
-    url: string,
-    config?: CustomAxiosRequestConfig
-  ): Promise<R>
+  get<T = any, R = AxiosResponse<T>>(url: string, config?: CustomAxiosRequestConfig): Promise<R>
   post<T = any, R = AxiosResponse<T>>(
     url: string,
     data?: any,
@@ -51,10 +48,7 @@ export interface TypedAxiosInstance extends AxiosInstance {
     data?: any,
     config?: CustomAxiosRequestConfig
   ): Promise<R>
-  delete<T = any, R = AxiosResponse<T>>(
-    url: string,
-    config?: CustomAxiosRequestConfig
-  ): Promise<R>
+  delete<T = any, R = AxiosResponse<T>>(url: string, config?: CustomAxiosRequestConfig): Promise<R>
 }
 
 export const apiClient = client as TypedAxiosInstance
@@ -75,10 +69,16 @@ apiClient.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as CustomAxiosRequestConfig
 
+    const skipRefreshEndpoints = ['/auth/login', '/auth/signup']
+
+    const requestUrl = originalRequest?.url || ''
+    const isSkipRefresh = skipRefreshEndpoints.some((endPoint) => requestUrl.includes(endPoint))
+
     if (
       error.response?.status === 401 &&
       originalRequest &&
-      !originalRequest._retry
+      !originalRequest._retry &&
+      !isSkipRefresh
     ) {
       originalRequest._retry = true
 

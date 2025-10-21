@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, ReactElement, useEffect, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import config, { ThemeDirection, ThemeMode } from '@/config'
 import { CustomizationProps } from '@/types/config'
 
@@ -11,7 +11,7 @@ const initialState: CustomizationProps = {
 }
 
 type ConfigProviderProps = {
-  children: ReactElement
+  children: ReactNode
 }
 
 // ====================|| CONFIG CONTEXT & PROVIDER ||==================== //
@@ -19,8 +19,7 @@ type ConfigProviderProps = {
 const ConfigContext = createContext(initialState)
 
 function ConfigProvider({ children }: ConfigProviderProps) {
-  const [configState, setConfigState] =
-    useState<CustomizationProps>(initialState)
+  const [configState, setConfigState] = useState<CustomizationProps>(initialState)
 
   // ✅ Defer localStorage read to client
   useEffect(() => {
@@ -43,9 +42,7 @@ function ConfigProvider({ children }: ConfigProviderProps) {
   }
 
   return (
-    <ConfigContext.Provider
-      value={{ ...configState, onChangeMode, onChangeDirection }}
-    >
+    <ConfigContext.Provider value={{ ...configState, onChangeMode, onChangeDirection }}>
       {children}
     </ConfigContext.Provider>
   )

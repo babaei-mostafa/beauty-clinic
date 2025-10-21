@@ -8,7 +8,10 @@ const userSchema = new Schema<IUserDocument>(
     password: { type: String, required: true },
     first_name: { type: String, required: true },
     last_name: { type: String, required: true },
-    role: { type: String, required: true },
+    role: {
+      type: String,
+      enum: ['user', 'client', 'staff', 'admin', 'super_admin'],
+    },
   },
   { timestamps: true }
 )

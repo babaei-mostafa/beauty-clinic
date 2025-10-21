@@ -31,8 +31,8 @@ export default function AdditionalInformationStep({ values }: Props) {
           label="Do you have any allergies?"
           name="is_allergy"
           options={[
-            { label: 'Yes', value: true },
-            { label: 'No', value: false },
+            { label: 'Yes', value: 'true' },
+            { label: 'No', value: 'false' },
           ]}
         />
       </Grid>
@@ -48,11 +48,7 @@ export default function AdditionalInformationStep({ values }: Props) {
       )}
 
       <Grid size={{ xs: 12 }}>
-        <CustomTextField
-          name="notes"
-          label="Special Requests / Notes"
-          multiline
-        />
+        <CustomTextField name="notes" label="Special Requests / Notes" multiline />
       </Grid>
     </Grid>
   )

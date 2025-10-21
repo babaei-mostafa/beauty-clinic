@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactElement, useState } from 'react'
+import { ReactNode, useState } from 'react'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -11,11 +11,7 @@ import { useMounted } from '@/hooks/useMounted'
 
 // ====================|| PROVIDER WRAPPER ||==================== //
 
-export default function ProviderWrapper({
-  children,
-}: {
-  children: ReactElement
-}) {
+export default function ProviderWrapper({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient())
   const mounted = useMounted()
 

@@ -2,7 +2,6 @@
 
 import { StaticImageData } from 'next/image'
 
-import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
 import Avatar from '@mui/material/Avatar'

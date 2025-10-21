@@ -12,12 +12,14 @@ export const authService = {
     password,
     first_name,
     last_name,
+    role = 'user',
   }: {
     username: string
     email: string
     password: string
     first_name: string
     last_name: string
+    role: string
   }) {
     await connectDB()
 
@@ -31,6 +33,7 @@ export const authService = {
       password: hashed,
       first_name,
       last_name,
+      role,
     })
 
     return {

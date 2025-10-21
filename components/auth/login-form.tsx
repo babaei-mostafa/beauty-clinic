@@ -8,12 +8,14 @@ import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 
 import { Formik } from 'formik'
+import { enqueueSnackbar } from 'notistack'
 
 import { useLoginMutation } from '@/hooks/react-query/auth/authHooks'
 import { loginInitialValues } from './login-values'
-import CustomTextField from '../form/custom-tesxtfield'
+import CustomTextField from '@/components/form/custom-tesxtfield'
 import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
-import CustomImage from '../UI/image/custom-image'
+import CustomImage from '@/components/UI/image/custom-image'
+import { getApiErrorMessage } from '@/utils/handleApiErrors'
 
 // ====================|| LOGIN FORM ||==================== //
 
@@ -23,6 +25,10 @@ export default function LoginForm() {
   const { mutate: login, isPending } = useLoginMutation({
     onSuccess: () => {
       router.push('/admin/dashboard')
+      enqueueSnackbar("You've successfully logged in!", { variant: 'success' })
+    },
+    onError: (error: any) => {
+      enqueueSnackbar(getApiErrorMessage(error), { variant: 'error' })
     },
   })
 
@@ -43,7 +49,7 @@ export default function LoginForm() {
         }}
       >
         {({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <Paper
               sx={{
                 maxWidth: 600,

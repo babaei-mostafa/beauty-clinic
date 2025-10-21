@@ -9,6 +9,7 @@ import Button from '@mui/material/Button'
 
 import { Formik } from 'formik'
 import { toFormikValidationSchema } from 'zod-formik-adapter'
+import { enqueueSnackbar } from 'notistack'
 
 import { useSignupMutation } from '@/hooks/react-query/auth/authHooks'
 import CustomTextField from '@/components/form/custom-tesxtfield'
@@ -16,6 +17,7 @@ import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
 import CustomImage from '@/components/UI/image/custom-image'
 import { signupInitialValues } from './signup-values'
 import { singupSchema } from '@/lib/schemas/signup'
+import { getApiErrorMessage } from '@/utils/handleApiErrors'
 
 // ====================|| SIGNUP FORM ||==================== //
 
@@ -25,6 +27,10 @@ export default function SignupForm() {
   const { mutate: signup, isPending } = useSignupMutation({
     onSuccess: () => {
       router.push('/auth/login')
+      enqueueSnackbar('Signup successful! Redirecting to login...', { variant: 'success' })
+    },
+    onError: (error: any) => {
+      enqueueSnackbar(getApiErrorMessage(error), { variant: 'error' })
     },
   })
 
@@ -42,12 +48,11 @@ export default function SignupForm() {
         initialValues={signupInitialValues}
         validationSchema={toFormikValidationSchema(singupSchema)}
         onSubmit={(values) => {
-          console.log(values)
-          // signup(values)
+          signup(values)
         }}
       >
         {({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <Paper
               sx={{
                 maxWidth: 600,

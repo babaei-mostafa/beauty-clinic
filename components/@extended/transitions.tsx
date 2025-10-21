@@ -1,4 +1,4 @@
-import { forwardRef, ExoticComponent, ReactElement, Ref } from 'react'
+import { forwardRef, ExoticComponent, Ref, ReactNode } from 'react'
 
 // material-ui
 import Collapse from '@mui/material/Collapse'
@@ -9,7 +9,7 @@ import Slide from '@mui/material/Slide'
 import Zoom, { ZoomProps } from '@mui/material/Zoom'
 
 interface Props {
-  children?: ReactElement
+  children?: ReactNode
   position?: string
   in?: boolean
   type?: string
@@ -20,13 +20,7 @@ interface Props {
 // ==============================|| TRANSITIONS ||============================== //
 
 function Transitions(
-  {
-    children,
-    position = 'top-left',
-    type = 'grow',
-    direction = 'up',
-    ...others
-  }: Props,
+  { children, position = 'top-left', type = 'grow', direction = 'up', ...others }: Props,
   ref: Ref<ExoticComponent>
 ) {
   let positionSX = {
@@ -128,9 +122,6 @@ export default forwardRef(Transitions)
 
 // ==============================|| POPUP / DIALOG - TRANSITIONS ||============================== //
 
-export const PopupTransition = forwardRef(function Transition(
-  props: ZoomProps,
-  ref: Ref<unknown>
-) {
+export const PopupTransition = forwardRef(function Transition(props: ZoomProps, ref: Ref<unknown>) {
   return <Zoom ref={ref} timeout={200} {...props} />
 })
