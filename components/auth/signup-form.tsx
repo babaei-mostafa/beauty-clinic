@@ -18,6 +18,7 @@ import CustomImage from '@/components/UI/image/custom-image'
 import { signupInitialValues } from './signup-values'
 import { singupSchema } from '@/lib/schemas/signup'
 import { getApiErrorMessage } from '@/utils/handleApiErrors'
+import ButtonWithLoader from '../UI/button/btn-with-loader'
 
 // ====================|| SIGNUP FORM ||==================== //
 
@@ -42,6 +43,7 @@ export default function SignupForm() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        my: 1,
       }}
     >
       <Formik
@@ -59,28 +61,28 @@ export default function SignupForm() {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: 4,
-                p: 4,
+                gap: 2,
+                p: 2,
               }}
             >
               <CustomImage src={LOGO.src} alt="etoile-beauty-clinic-logo" objectFit="contain" />
               <Grid container spacing={2}>
-                <Grid size={{ xs: 12 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <CustomTextField name="first_name" label="First Name" />
                 </Grid>
-                <Grid size={{ xs: 12 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <CustomTextField name="last_name" label="Last Name" />
                 </Grid>
-                <Grid size={{ xs: 12 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <CustomTextField name="username" label="Username" />
                 </Grid>
-                <Grid size={{ xs: 12 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <CustomTextField name="email" label="Email" />
                 </Grid>
-                <Grid size={{ xs: 12 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <CustomTextField name="password" label="Password" inputType="password" />
                 </Grid>
-                <Grid size={{ xs: 12 }}>
+                <Grid size={{ xs: 12, md: 6 }}>
                   <CustomTextField
                     name="confirm_password"
                     label="Confirm Password"
@@ -88,14 +90,9 @@ export default function SignupForm() {
                   />
                 </Grid>
                 <Grid size={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    disabled={isPending}
-                    sx={{ width: '100%' }}
-                  >
+                  <ButtonWithLoader isLoading={isPending} fullWidth>
                     Sign Up
-                  </Button>
+                  </ButtonWithLoader>
                 </Grid>
               </Grid>
             </Paper>
