@@ -8,12 +8,14 @@ import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
 
 import { Formik } from 'formik'
+import { toFormikValidationSchema } from 'zod-formik-adapter'
 
-import { useLoginMutation, useSignupMutation } from '@/hooks/react-query/auth/authHooks'
-import CustomTextField from '../form/custom-tesxtfield'
+import { useSignupMutation } from '@/hooks/react-query/auth/authHooks'
+import CustomTextField from '@/components/form/custom-tesxtfield'
 import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
-import CustomImage from '../UI/image/custom-image'
+import CustomImage from '@/components/UI/image/custom-image'
 import { signupInitialValues } from './signup-values'
+import { singupSchema } from '@/lib/schemas/signup'
 
 // ====================|| SIGNUP FORM ||==================== //
 
@@ -38,8 +40,10 @@ export default function SignupForm() {
     >
       <Formik
         initialValues={signupInitialValues}
+        validationSchema={toFormikValidationSchema(singupSchema)}
         onSubmit={(values) => {
-          signup(values)
+          console.log(values)
+          // signup(values)
         }}
       >
         {({ handleSubmit }) => (
@@ -73,8 +77,8 @@ export default function SignupForm() {
                 </Grid>
                 <Grid size={{ xs: 12 }}>
                   <CustomTextField
-                    name="repeat_password"
-                    label="Repeat Password"
+                    name="confirm_password"
+                    label="Confirm Password"
                     inputType="password"
                   />
                 </Grid>
@@ -85,7 +89,7 @@ export default function SignupForm() {
                     disabled={isPending}
                     sx={{ width: '100%' }}
                   >
-                    Login
+                    Sign Up
                   </Button>
                 </Grid>
               </Grid>

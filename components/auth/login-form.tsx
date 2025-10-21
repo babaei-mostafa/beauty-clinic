@@ -69,7 +69,7 @@ export default function LoginForm() {
                     disabled={isPending}
                     sx={{ width: '100%' }}
                   >
-                    Login
+                    Log In
                   </Button>
                 </Grid>
               </Grid>
