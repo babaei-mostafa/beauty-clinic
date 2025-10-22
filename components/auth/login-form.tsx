@@ -29,7 +29,7 @@ export default function LoginForm() {
     onSuccess: (data: ILoginRes) => {
       enqueueSnackbar("You've successfully logged in!", { variant: 'success' })
       storeLogin(data)
-      router.push('/admin/dashboard')
+      router.push('/dashboard')
     },
     onError: (error: any) => {
       enqueueSnackbar(getApiErrorMessage(error), { variant: 'error' })

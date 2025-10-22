@@ -4,6 +4,7 @@ import '@/styles/globals.css'
 import ProviderWrapper from '@/components/layout/provider-wrapper'
 import PageWrapper from '@/components/layout/page-wrapper'
 import ThemeModeBtn from '@/components/theme-mode-btn'
+import DashboardLayout from '@/components/dashboard/layout/dash-layout'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,10 +21,10 @@ export default function RootLayout({
       <body>
         <ProviderWrapper>
           <PageWrapper>
-            <div className="flex min-h-screen flex-col">
+            <DashboardLayout>
               <main className="flex-1">{children}</main>
-              <ThemeModeBtn />
-            </div>
+            </DashboardLayout>
+            <ThemeModeBtn />
           </PageWrapper>
         </ProviderWrapper>
       </body>
