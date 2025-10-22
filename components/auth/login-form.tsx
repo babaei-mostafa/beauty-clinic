@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
-import Button from '@mui/material/Button'
 
 import { Formik } from 'formik'
 import { enqueueSnackbar } from 'notistack'
@@ -16,18 +15,21 @@ import CustomTextField from '@/components/form/custom-tesxtfield'
 import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
 import CustomImage from '@/components/UI/image/custom-image'
 import { getApiErrorMessage } from '@/utils/handleApiErrors'
-import DotsLoader from '@/components/UI/loader/three-dots'
-import ButtonWithLoader from '../UI/button/btn-with-loader'
+import ButtonWithLoader from '@/components/UI/button/btn-with-loader'
+import { IAuthState, useAuthStore } from '@/stores/auth-store'
+import { ILoginRes } from '@/types/auth'
 
 // ====================|| LOGIN FORM ||==================== //
 
 export default function LoginForm() {
   const router = useRouter()
+  const { login: storeLogin } = useAuthStore((state: IAuthState) => state)
 
   const { mutate: login, isPending } = useLoginMutation({
-    onSuccess: () => {
-      router.push('/admin/dashboard')
+    onSuccess: (data: ILoginRes) => {
       enqueueSnackbar("You've successfully logged in!", { variant: 'success' })
+      storeLogin(data)
+      router.push('/admin/dashboard')
     },
     onError: (error: any) => {
       enqueueSnackbar(getApiErrorMessage(error), { variant: 'error' })
@@ -71,16 +73,9 @@ export default function LoginForm() {
                   <CustomTextField name="password" label="Password" inputType="password" />
                 </Grid>
                 <Grid size={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    // disabled={isPending}
-                    sx={{ width: '100%' }}
-                  >
-                    <ButtonWithLoader isLoading={isPending} fullWidth>
-                      Log In
-                    </ButtonWithLoader>
-                  </Button>
+                  <ButtonWithLoader isLoading={isPending} fullWidth>
+                    Log In
+                  </ButtonWithLoader>
                 </Grid>
               </Grid>
             </Paper>

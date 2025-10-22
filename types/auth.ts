@@ -3,6 +3,15 @@ export interface ILoginReq {
   password: string
 }
 
+export interface ILoginRes {
+  id: string
+  role: string
+  username: string
+  email: string
+  first_name: string
+  last_name: string
+}
+
 export interface ISignupReq {
   email: string
   username: string
@@ -11,5 +20,3 @@ export interface ISignupReq {
   first_name: string
   last_name: string
 }
-
-

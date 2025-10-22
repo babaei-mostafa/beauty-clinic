@@ -9,3 +9,11 @@ export interface IUserDocument extends Document {
   last_name: string
   role: string
 }
+
+export interface IUserProfile {
+  email: string
+  username: string
+  first_name: string
+  last_name: string
+  role: string
+}

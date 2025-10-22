@@ -60,7 +60,14 @@ export const authService = {
     const refresh = signRefreshToken({ userId: user._id })
 
     return {
-      user: { id: user._id, email: user.email, username: user.username },
+      user: {
+        id: user._id,
+        email: user.email,
+        username: user.username,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        role: user.role,
+      },
       token,
       refresh,
     }
