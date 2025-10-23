@@ -1,10 +1,13 @@
 'use client'
 
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import MuiLink from '@mui/material/Link'
 
 import { Formik } from 'formik'
 import { enqueueSnackbar } from 'notistack'
@@ -64,7 +67,9 @@ export default function LoginForm() {
                 p: 2,
               }}
             >
-              <CustomImage src={LOGO.src} alt="etoile-beauty-clinic-logo" objectFit="contain" />
+              <Link href="/">
+                <CustomImage src={LOGO.src} alt="etoile-beauty-clinic-logo" objectFit="contain" />
+              </Link>
               <Grid container spacing={2}>
                 <Grid size={{ xs: 12 }}>
                   <CustomTextField name="email" label="Email" />
@@ -78,6 +83,17 @@ export default function LoginForm() {
                   </ButtonWithLoader>
                 </Grid>
               </Grid>
+              <Typography>
+                Don&apos;t have an account?{' '}
+                <MuiLink
+                  component={Link}
+                  href="/auth/signup"
+                  sx={{ fontWeight: 600 }}
+                  underline="hover"
+                >
+                  Sign Up
+                </MuiLink>
+              </Typography>
             </Paper>
           </form>
         )}

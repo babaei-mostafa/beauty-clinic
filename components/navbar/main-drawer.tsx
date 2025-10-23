@@ -29,6 +29,7 @@ const menuItems = [
   { id: 'gallery', title: 'Gallery', url: '/', IMG: SKIN_MENU_IMG },
   { id: 'reviews', title: 'Reviews', url: '/', IMG: SKIN_MENU_IMG },
   { id: 'about-us', title: 'About Us', url: '/about', IMG: SKIN_MENU_IMG },
+  { id: 'login', title: 'Login', url: '/auth/login', IMG: SKIN_MENU_IMG },
 ]
 
 interface Props {
