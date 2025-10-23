@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import '@/styles/globals.css'
 import ProviderWrapper from '@/components/layout/provider-wrapper'
 import PageWrapper from '@/components/layout/page-wrapper'
-import ThemeModeBtn from '@/components/theme-mode-btn'
 import DashboardLayout from '@/components/dashboard/layout/dash-layout'
 
 export const metadata: Metadata = {
@@ -24,7 +23,6 @@ export default function RootLayout({
             <DashboardLayout>
               <main className="flex-1">{children}</main>
             </DashboardLayout>
-            <ThemeModeBtn />
           </PageWrapper>
         </ProviderWrapper>
       </body>

@@ -1,3 +1,5 @@
+import PageContainer from './page-container'
+
 export default function Dashboard() {
-  return <div>dashboard</div>
+  return <PageContainer title="Dashboard">This is the dashboard area.</PageContainer>
 }

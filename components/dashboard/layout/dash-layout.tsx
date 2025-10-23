@@ -7,7 +7,7 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import DashboardHeader from './dash-header'
 import DashboardSidebar from './dash-sidebar'
-import SitemarkIcon from './site-mark-icon'
+import CustomImage from '@/components/UI/image/custom-image'
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const theme = useTheme()
@@ -53,7 +53,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       }}
     >
       <DashboardHeader
-        logo={<SitemarkIcon />}
+        logo={
+          <CustomImage
+            alt="etoile clinic"
+            src="/assets/images/etoile-clinic-logo-small.png"
+            width={35}
+            height={35}
+          />
+        }
         title=""
         menuOpen={isNavigationExpanded}
         onToggleMenu={handleToggleHeaderMenu}

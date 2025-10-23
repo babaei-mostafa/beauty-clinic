@@ -10,34 +10,23 @@ export default function Menu(mode: ThemeMode) {
       styleOverrides: {
         paper: {
           backgroundColor:
-            mode === ThemeMode.DARK
-              ? paletteColor.secondary[200]
-              : paletteColor.secondary.lighter,
+            mode === ThemeMode.DARK ? paletteColor.secondary[200] : paletteColor.secondary.lighter,
         },
       },
     },
     MuiMenuItem: {
       styleOverrides: {
         root: {
-          color:
-            mode === ThemeMode.DARK
-              ? paletteColor.secondary.lighter
-              : paletteColor.secondary.dark,
+          color: 'inherit',
           '&.Mui-selected': {
             backgroundColor:
-              mode === ThemeMode.DARK
-                ? paletteColor.secondary[300]
-                : paletteColor.secondary[200],
+              mode === ThemeMode.DARK ? paletteColor.secondary[300] : paletteColor.secondary[200],
             color:
-              mode === ThemeMode.DARK
-                ? paletteColor.primary.main
-                : paletteColor.secondary[900],
+              mode === ThemeMode.DARK ? paletteColor.primary.main : paletteColor.secondary[900],
           },
           '&:hover': {
             backgroundColor:
-              mode === ThemeMode.DARK
-                ? paletteColor.secondary[400]
-                : paletteColor.secondary[100],
+              mode === ThemeMode.DARK ? paletteColor.secondary[400] : paletteColor.secondary[100],
           },
           '&.Mui-disabled': {
             color: alpha(

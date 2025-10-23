@@ -11,6 +11,7 @@ import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import Stack from '@mui/material/Stack'
 import Link from 'next/link'
 import ThemeModeBtn from '@/components/theme-mode-btn'
+import AccountMenu from '../components/account-menu'
 
 const AppBar = styled(MuiAppBar)(({ theme }) => ({
   borderWidth: 0,
@@ -89,7 +90,7 @@ export default function DashboardHeader({
         >
           <Stack direction="row" alignItems="center">
             <Box sx={{ mr: 1 }}>{getMenuIcon(menuOpen)}</Box>
-            <Link href="/" style={{ textDecoration: 'none' }}>
+            <Link href="/dashboard" style={{ textDecoration: 'none' }}>
               <Stack direction="row" alignItems="center">
                 {logo ? <LogoContainer>{logo}</LogoContainer> : null}
                 {title ? (
@@ -109,9 +110,11 @@ export default function DashboardHeader({
               </Stack>
             </Link>
           </Stack>
+
           <Stack direction="row" alignItems="center" spacing={1} sx={{ marginLeft: 'auto' }}>
             <Stack direction="row" alignItems="center">
               <ThemeModeBtn />
+              <AccountMenu />
             </Stack>
           </Stack>
         </Stack>

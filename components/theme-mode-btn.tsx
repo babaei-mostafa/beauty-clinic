@@ -16,7 +16,7 @@ import useConfig from '@/hooks/useConfig'
 
 // ====================|| THEME MODE BTN ||==================== //
 
-export default function ThemeModeBtn() {
+export default function ThemeModeBtn({ fixed }: { fixed?: boolean }) {
   const { onChangeMode } = useConfig()
   const [anchorEl, setAnchorEl] = useState<null | HTMLButtonElement>(null)
   const open = Boolean(anchorEl)
@@ -35,16 +35,11 @@ export default function ThemeModeBtn() {
   }
 
   return (
-    <div className="fixed bottom-10 left-10 z-20">
+    <div className={`${fixed ? 'fixed bottom-10 left-10 z-20' : ''}`}>
       <Button id="theme-mode-menu" onClick={handleClick}>
         <LightModeIcon />
       </Button>
-      <Menu
-        id="theme-mode-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-      >
+      <Menu id="theme-mode-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
         <MenuItem onClick={(e) => handleChangeMode(e, ThemeMode.LIGHT)}>
           <Stack direction="row" spacing={1}>
             <Typography>

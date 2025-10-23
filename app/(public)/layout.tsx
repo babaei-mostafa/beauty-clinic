@@ -27,7 +27,7 @@ export default function RootLayout({
               <HomeTopImage />
               <Header />
               <main className="flex-1">{children}</main>
-              <ThemeModeBtn />
+              <ThemeModeBtn fixed />
               <Footer />
             </div>
           </PageWrapper>
