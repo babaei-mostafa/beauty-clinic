@@ -37,3 +37,27 @@ export async function login(req: NextRequest) {
     return NextResponse.json({ error: err.message }, { status: 401 })
   }
 }
+
+export async function logout() {
+  try {
+    const res = NextResponse.json({ message: 'You logged out successfully!' }, { status: 200 })
+
+    res.cookies.set('access_token', '', {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+      expires: new Date(0), // expires immediately
+    })
+
+    res.cookies.set('refresh_token', '', {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+      expires: new Date(0),
+    })
+
+    return res
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 })
+  }
+}

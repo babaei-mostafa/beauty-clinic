@@ -20,3 +20,7 @@ export interface ISignupReq {
   first_name: string
   last_name: string
 }
+
+export interface ILogoutRes {
+  message: string
+}

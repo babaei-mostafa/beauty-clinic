@@ -1,6 +1,6 @@
-import { ILoginReq, ILoginRes, ISignupReq } from '@/types/auth'
+import { ILoginReq, ILoginRes, ILogoutRes, ISignupReq } from '@/types/auth'
 import { MutationOptions, useMutation } from '@tanstack/react-query'
-import { login, signup } from './authApi'
+import { login, logout, signup } from './authApi'
 import { AxiosError } from 'axios'
 
 export const useLoginMutation = (options?: MutationOptions<ILoginRes, AxiosError, ILoginReq>) => {
@@ -17,6 +17,15 @@ export const useSignupMutation = (options?: MutationOptions<any, AxiosError, ISi
   return useMutation({
     mutationKey,
     mutationFn: (body: ISignupReq) => signup(body),
+    ...options,
+  })
+}
+
+export const useLogoutMutation = (options?: MutationOptions<ILogoutRes, AxiosError>) => {
+  const mutationKey = [`/auth/logut`]
+  return useMutation({
+    mutationKey,
+    mutationFn: () => logout(),
     ...options,
   })
 }

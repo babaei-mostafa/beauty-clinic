@@ -1,5 +1,5 @@
 import apiClient from '@/lib/apiClient'
-import { ILoginReq, ILoginRes, ISignupReq } from '@/types/auth'
+import { ILoginReq, ILoginRes, ILogoutRes, ISignupReq } from '@/types/auth'
 
 export const login = async (body: ILoginReq): Promise<ILoginRes> => {
   const url = `/api/auth/login`
@@ -10,5 +10,11 @@ export const login = async (body: ILoginReq): Promise<ILoginRes> => {
 export const signup = async (body: ISignupReq): Promise<any> => {
   const url = `/api/auth/signup`
   const { data } = await apiClient.post(url, body, { skipAuth: true })
+  return data
+}
+
+export const logout = async (): Promise<ILogoutRes> => {
+  const url = `/api/auth/logout`
+  const { data } = await apiClient.post(url)
   return data
 }
