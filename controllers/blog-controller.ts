@@ -7,7 +7,6 @@ import { requireAdminAuth } from '@/utils/require-auth'
 
 export async function createArticle(req: NextRequest) {
   try {
-    
     // ---- AUTH GUARD START ----
     const authResult = requireAdminAuth(req)
 
@@ -24,7 +23,7 @@ export async function createArticle(req: NextRequest) {
 
 export async function getArticles(req: NextRequest) {
   try {
-    const {page, limit} = getPagination(req)
+    const { page, limit } = getPagination(req)
 
     const baseUrl = req.nextUrl.origin + req.nextUrl.pathname
 
@@ -37,19 +36,19 @@ export async function getArticles(req: NextRequest) {
 
     return NextResponse.json(result, { status: 200 })
   } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 200 })
+    return NextResponse.json({ error: err.message }, { status: 500 })
   }
 }
 
 export async function getAdminArticles(req: NextRequest) {
   try {
-    const {page, limit} = getPagination(req)
+    const { page, limit } = getPagination(req)
 
     const baseUrl = req.nextUrl.origin + req.nextUrl.pathname
 
     const result = await blogService.getArticles({ page, limit, baseUrl })
     return NextResponse.json(result, { status: 200 })
   } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 200 })
+    return NextResponse.json({ error: err.message }, { status: 500 })
   }
 }

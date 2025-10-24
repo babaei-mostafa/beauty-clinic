@@ -22,6 +22,11 @@ Content-Type: application/json
 
 ###
 
+### Get Users List
+GET {{baseUrl}}/admin/users
+Content-Type: application/json
+###
+
 # ====================|| PUBLIC USERS API ||====================
 
 ### Sign Up
@@ -37,6 +42,8 @@ Content-Type: application/json
     "role": "admin"
 }
 
+###
+
 ### Log In
 POST {{baseUrl}}/auth/login
 Content-Type: application/json
@@ -46,11 +53,11 @@ Content-Type: application/json
     "password": "123"
 }
 
+###
+
 ### Get articles list
 GET {{baseUrl}}/blog/articles
 Content-Type: application/json
 ###
-
-
 
 
