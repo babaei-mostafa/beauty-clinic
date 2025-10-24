@@ -1,12 +1,14 @@
+@baseUrl = http://localhost:3000/api
+
 # ====================|| ADMIN API ||====================
 
 ### Get articles list
-GET http://localhost:3000/api/admin/blog/articles
+GET {{baseUrl}}/admin/blog/articles
 Content-Type: application/json
 ###
 
 ### Create a new article
-POST http://localhost:3000/api/admin/blog/articles
+POST {{baseUrl}}/admin/blog/articles
 Content-Type: application/json
 
 {
@@ -22,8 +24,30 @@ Content-Type: application/json
 
 # ====================|| PUBLIC USERS API ||====================
 
+### Sign Up
+POST {{baseUrl}}/auth/signup
+Content-Type: application/json
+
+{
+    "username": "bbb",
+    "first_name": "Michael",
+    "last_name": "Bauer",
+    "email": "b@gmail.com",
+    "password": "123",
+    "role": "admin"
+}
+
+### Log In
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "b@gmail.com",
+    "password": "123"
+}
+
 ### Get articles list
-GET http://localhost:3000/api/blog/articles
+GET {{baseUrl}}/blog/articles
 Content-Type: application/json
 ###
 

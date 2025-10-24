@@ -1,8 +1,6 @@
 import { Components, Theme } from '@mui/material'
 
-import { ThemeMode } from '@/config'
-
-export default function TextField(mode: ThemeMode): Components<Omit<Theme, 'Components'>> {
+export default function TextField(): Components<Omit<Theme, 'Components'>> {
   return {
     MuiTextField: {
       styleOverrides: {

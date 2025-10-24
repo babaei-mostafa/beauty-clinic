@@ -7,10 +7,11 @@ import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 
-import { useLogoutMutation } from '@/hooks/react-query/auth/authHooks'
 import LogoutBtn from './logout'
+import { useRouter } from 'next/navigation'
 
 export default function AccountMenu() {
+  const router = useRouter()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
@@ -19,6 +20,10 @@ export default function AccountMenu() {
   }
   const handleClose = () => {
     setAnchorEl(null)
+  }
+  const handleProfileClick = () => {
+    handleClose()
+    router.push('/dashboard/profile')
   }
 
   return (
@@ -74,7 +79,7 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleProfileClick}>
           <Avatar /> Profile
         </MenuItem>
         <Divider />

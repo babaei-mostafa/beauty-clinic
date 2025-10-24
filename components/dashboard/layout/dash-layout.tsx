@@ -89,7 +89,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           }}
         >
           {children}
-          {/* <Outlet /> */}
         </Box>
       </Box>
     </Box>

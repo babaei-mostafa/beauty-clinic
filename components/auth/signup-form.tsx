@@ -18,7 +18,7 @@ import CustomTextField from '@/components/form/custom-tesxtfield'
 import LOGO from '@/public/assets/images/etoile-clinic-logo-small.png'
 import CustomImage from '@/components/UI/image/custom-image'
 import { signupInitialValues } from './signup-values'
-import { singupSchema } from '@/lib/schemas/signup'
+import { singupSchema } from '@/lib/schemas/auth'
 import { getApiErrorMessage } from '@/utils/handleApiErrors'
 import ButtonWithLoader from '@/components/UI/button/btn-with-loader'
 

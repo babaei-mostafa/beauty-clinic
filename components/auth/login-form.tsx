@@ -11,6 +11,7 @@ import MuiLink from '@mui/material/Link'
 
 import { Formik } from 'formik'
 import { enqueueSnackbar } from 'notistack'
+import { toFormikValidationSchema } from 'zod-formik-adapter'
 
 import { useLoginMutation } from '@/hooks/react-query/auth/authHooks'
 import { loginInitialValues } from './login-values'
@@ -21,6 +22,7 @@ import { getApiErrorMessage } from '@/utils/handleApiErrors'
 import ButtonWithLoader from '@/components/UI/button/btn-with-loader'
 import { IAuthState, useAuthStore } from '@/stores/auth-store'
 import { ILoginRes } from '@/types/auth'
+import { loginSchema } from '@/lib/schemas/auth'
 
 // ====================|| LOGIN FORM ||==================== //
 
@@ -51,6 +53,7 @@ export default function LoginForm() {
     >
       <Formik
         initialValues={loginInitialValues}
+        validationSchema={toFormikValidationSchema(loginSchema)}
         onSubmit={(values) => {
           login(values)
         }}
