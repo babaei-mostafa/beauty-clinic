@@ -12,7 +12,11 @@ export function signRefreshToken(payload: object) {
 }
 
 export function verifyAccessToken(token: string) {
-  return jwt.verify(token, JWT_SECRET)
+  try {
+    return jwt.verify(token, JWT_SECRET)
+  } catch {
+    throw new Error('Invalid or expired token')
+  }
 }
 
 export function verifyRefreshToken(token: string) {

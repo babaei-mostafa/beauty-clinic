@@ -1,23 +1,26 @@
 @baseUrl = http://localhost:3000/api
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGZhZGRiYjFjZjY0NzUyOWI1MWQyYzQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjEzODcxNDUsImV4cCI6MTc2MTM5MDc0NX0.00-ANUdMda8uYYIRhnwJkPwyfJ9jUQujimRYNYu5_pc
 
 # ====================|| ADMIN API ||====================
 
 ### Get articles list
 GET {{baseUrl}}/admin/blog/articles
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 ###
 
 ### Create a new article
 POST {{baseUrl}}/admin/blog/articles
 Content-Type: application/json
+Authorization: Bearer {{accessToken}}
 
 {
-    "title": "Published One",
-    "short_description": "this is the short description of the post: published one.",
-    "body": "this is the body of the post: published one.",
+    "title": "Published Three",
+    "short_description": "this is the short description of the post: published three.",
+    "body": "this is the body of the post: published three.",
     "image": "https://media.post.rvohealth.io/wp-content/uploads/2022/06/female-rubbing-sunscreen-on-skin-732-549-feature-thumb-732x549.jpg",
     "is_published": true,
-    "slug": "published-one"
+    "slug": "published-three"
 }
 
 ###

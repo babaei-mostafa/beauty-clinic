@@ -1,17 +1,23 @@
-import { verifyAccessToken } from "@/lib/jwt";
-import { NextRequest, NextResponse } from "next/server";
+import { verifyAccessToken } from '@/lib/jwt'
+import { NextRequest, NextResponse } from 'next/server'
 
 export function requireAdminAuth(req: NextRequest) {
-    const authHeader = req.headers.get("authorization")
+  try {
+    const authHeader = req.headers.get('authorization')
+    const token = authHeader?.split(' ')[1]
 
-    if (!authHeader) {
-        return NextResponse.json({error: "Unauthorized"}, {status: 401})
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const token = authHeader.split(" ")[1]
-    const isVerified = verifyAccessToken(token)
+    const decoded = verifyAccessToken(token) as { userId: string; role: string }
 
-    if (!isVerified) {
-        return NextResponse.json({error:"Forbidden"}, {status: 403})
+    if (!decoded || decoded.role !== 'admin') {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
+
+    return decoded
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 401 })
+  }
 }
