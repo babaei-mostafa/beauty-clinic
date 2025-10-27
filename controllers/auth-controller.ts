@@ -1,3 +1,4 @@
+import { verifyAccessToken } from '@/lib/jwt'
 import { authService } from '@/services/auth-service'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -57,6 +58,20 @@ export async function logout() {
     })
 
     return res
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 })
+  }
+}
+
+export async function verify(req: NextRequest) {
+  try {
+    const token = req.cookies.get('access_token')?.value
+    if (!token) return NextResponse.json({ valid: false }, { status: 401 })
+
+    const payload = verifyAccessToken(token)
+    if (!payload) return NextResponse.json({ valid: false }, { status: 401 })
+
+    return NextResponse.json({ valid: true, payload })
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
