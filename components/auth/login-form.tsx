@@ -28,12 +28,12 @@ import { loginSchema } from '@/lib/schemas/auth'
 
 export default function LoginForm() {
   const router = useRouter()
-  const { login: storeLogin } = useAuthStore((state: IAuthState) => state)
+  const { setProfile } = useAuthStore((state: IAuthState) => state)
 
   const { mutate: login, isPending } = useLoginMutation({
     onSuccess: (data: ILoginRes) => {
       enqueueSnackbar("You've successfully logged in!", { variant: 'success' })
-      storeLogin(data)
+      setProfile(data)
       router.push('/dashboard')
     },
     onError: (error: any) => {

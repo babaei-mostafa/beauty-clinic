@@ -1,9 +1,10 @@
 import bcrypt from 'bcryptjs'
 
 import User from '@/models/User'
-import { signAccessToken, signRefreshToken } from '@/lib/jwt'
+import { signAccessToken, signRefreshToken, verifyRefreshToken } from '@/lib/jwt'
 import { connectDB } from '@/lib/db'
 import { IUserDocument } from '@/types/user'
+import { NextRequest } from 'next/server'
 
 export const authService = {
   async signup({
@@ -62,7 +63,7 @@ export const authService = {
     }
 
     const token = signAccessToken({ userId: user._id, role: user.role })
-    const refresh = signRefreshToken({ userId: user._id })
+    const refresh = signRefreshToken({ userId: user._id, role: user.role })
 
     return {
       user: {
@@ -75,6 +76,31 @@ export const authService = {
       },
       token,
       refresh,
+    }
+  },
+
+  async refresh(req: NextRequest) {
+    connectDB()
+
+    const refresh = req.cookies.get('refresh_token')?.value
+    if (!refresh) throw new Error('No refresh token')
+
+    const decoded = verifyRefreshToken(refresh) as { userId: string }
+    if (!decoded?.userId) throw new Error('Invalid refresh token')
+
+    const user = await User.findById(decoded.userId)
+    if (!user) throw new Error('User not found')
+
+    const newAccessToken = signAccessToken({ userId: user._id, role: user.role })
+
+    return {
+      user: {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+        username: user.username,
+      },
+      token: newAccessToken,
     }
   },
 }

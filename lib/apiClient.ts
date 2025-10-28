@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { useAuthStore } from '@/stores/auth-store'
+import { IUserProfile } from '@/types/user'
 import axios, {
   AxiosError,
   AxiosInstance,
@@ -27,7 +29,7 @@ export interface CustomAxiosRequestConfig extends AxiosRequestConfig {
 }
 
 interface RefreshResponse {
-  accessToken: string
+  user: IUserProfile
 }
 
 const client = axios.create({
@@ -83,20 +85,20 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true
 
       try {
+        // refresh the cookie
         const { data } = await axios.post<RefreshResponse>(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/refresh`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/refresh`,
           {},
           { withCredentials: true }
         )
 
-        setAccessToken(data.accessToken)
+        const store = useAuthStore.getState()
 
-        // retry original request with new token
-        if (!originalRequest.skipAuth) {
-          originalRequest.headers = originalRequest.headers ?? {}
-          originalRequest.headers.Authorization = `Bearer ${data.accessToken}`
+        if (data.user) {
+          store.setProfile(data.user)
         }
 
+        // retry original request with new token
         return apiClient(originalRequest)
       } catch (refreshError) {
         console.error('Token refresh failed:', refreshError)

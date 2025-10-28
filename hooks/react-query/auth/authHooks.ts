@@ -1,6 +1,12 @@
-import { ILoginReq, ILoginRes, ILogoutRes, ISignupReq } from '@/types/auth'
-import { MutationOptions, useMutation } from '@tanstack/react-query'
-import { login, logout, signup } from './authApi'
+import { ILoginReq, ILoginRes, ILogoutRes, ISignupReq, IVerifyRes } from '@/types/auth'
+import {
+  MutationOptions,
+  useMutation,
+  useQuery,
+  UseQueryOptions,
+  UseQueryResult,
+} from '@tanstack/react-query'
+import { hasSession, login, logout, signup, verify } from './authApi'
 import { AxiosError } from 'axios'
 
 export const useLoginMutation = (options?: MutationOptions<ILoginRes, AxiosError, ILoginReq>) => {
@@ -22,10 +28,30 @@ export const useSignupMutation = (options?: MutationOptions<any, AxiosError, ISi
 }
 
 export const useLogoutMutation = (options?: MutationOptions<ILogoutRes, AxiosError>) => {
-  const mutationKey = [`/auth/logut`]
+  const mutationKey = [`/auth/logout`]
   return useMutation({
     mutationKey,
     mutationFn: () => logout(),
     ...options,
+  })
+}
+
+export const useVerifyQuery = (
+  options?: Omit<UseQueryOptions<IVerifyRes, AxiosError, IVerifyRes>, 'queryKey' | 'queryFn'>
+): UseQueryResult<IVerifyRes, AxiosError> => {
+  const queryKey = ['/auth/verify']
+
+  return useQuery<IVerifyRes, AxiosError>({
+    queryKey,
+    queryFn: () => verify(),
+    ...options,
+  })
+}
+
+export const useHasSessionQuery = () => {
+  const queryKey = [`/auth/has-session`]
+  return useQuery({
+    queryKey,
+    queryFn: () => hasSession(),
   })
 }

@@ -24,3 +24,15 @@ export interface ISignupReq {
 export interface ILogoutRes {
   message: string
 }
+
+export interface IVerifyRes {
+  valid: boolean
+  payload?: {
+    userId: string
+    role: string
+  }
+}
+
+export interface IHasSessionRes {
+  hasSession: boolean
+}

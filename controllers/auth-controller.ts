@@ -23,7 +23,7 @@ export async function login(req: NextRequest) {
       httpOnly: true,
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
-      maxAge: 60 * 60, // 1h
+      maxAge: 60, // 1h
     })
 
     res.cookies.set('refresh_token', refresh, {
@@ -31,6 +31,25 @@ export async function login(req: NextRequest) {
       sameSite: 'strict',
       secure: process.env.NODE_ENV === 'production',
       maxAge: 60 * 60 * 24, // 1d
+    })
+
+    return res
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 401 })
+  }
+}
+
+export async function refresh(req: NextRequest) {
+  try {
+    const { user, token } = await authService.refresh(req)
+
+    const res = NextResponse.json({ user })
+
+    res.cookies.set('access_token', token, {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 60, // 1 hour
     })
 
     return res

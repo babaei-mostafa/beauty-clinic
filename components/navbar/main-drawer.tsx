@@ -1,6 +1,6 @@
 'use client'
 
-import { Dispatch, MouseEvent, SetStateAction, useState } from 'react'
+import { Dispatch, MouseEvent, SetStateAction, useMemo, useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
@@ -19,18 +19,7 @@ import PROMOTIONS_MENU_IMG from '@/public/assets/images/menu-images/skin-care-2.
 import { useMediaQuery, useTheme } from '@mui/material'
 import { StaticImageData } from 'next/image'
 import Link from 'next/link'
-
-const menuItems = [
-  { id: 'home', title: 'Home', url: '/', IMG: DEFAULT_MENU_IMG },
-  { id: 'skin-care', title: 'Skin Care', url: '/', IMG: SKIN_MENU_IMG },
-  { id: 'treatments', title: 'Treatments', url: '/', IMG: TREATMENTS_MENU_IMG },
-  { id: 'promotions', title: 'Promotions', url: '/', IMG: PROMOTIONS_MENU_IMG },
-  { id: 'blog', title: 'Blog', url: '/blog', IMG: SKIN_MENU_IMG },
-  { id: 'gallery', title: 'Gallery', url: '/', IMG: SKIN_MENU_IMG },
-  { id: 'reviews', title: 'Reviews', url: '/', IMG: SKIN_MENU_IMG },
-  { id: 'about-us', title: 'About Us', url: '/about', IMG: SKIN_MENU_IMG },
-  { id: 'login', title: 'Login', url: '/auth/login', IMG: SKIN_MENU_IMG },
-]
+import { IAuthState, useAuthStore } from '@/stores/auth-store'
 
 interface Props {
   open: boolean
@@ -43,6 +32,26 @@ export default function MainDrawer({ open, setOpen }: Props) {
   const theme = useTheme()
   const moreMd = useMediaQuery((theme) => theme.breakpoints.up('md'))
   const [hoveredImage, setHoveredImage] = useState<StaticImageData | null>(null)
+  const { profile } = useAuthStore((state: IAuthState) => state)
+
+  const menuItems = useMemo(() => {
+    return [
+      { id: 'home', title: 'Home', url: '/', IMG: DEFAULT_MENU_IMG },
+      { id: 'skin-care', title: 'Skin Care', url: '/', IMG: SKIN_MENU_IMG },
+      { id: 'treatments', title: 'Treatments', url: '/', IMG: TREATMENTS_MENU_IMG },
+      { id: 'promotions', title: 'Promotions', url: '/', IMG: PROMOTIONS_MENU_IMG },
+      { id: 'blog', title: 'Blog', url: '/blog', IMG: SKIN_MENU_IMG },
+      { id: 'gallery', title: 'Gallery', url: '/', IMG: SKIN_MENU_IMG },
+      { id: 'reviews', title: 'Reviews', url: '/', IMG: SKIN_MENU_IMG },
+      { id: 'about-us', title: 'About Us', url: '/about', IMG: SKIN_MENU_IMG },
+      {
+        id: profile ? 'dashboard' : 'login',
+        title: profile ? 'Dashboard' : 'Login',
+        url: profile ? '/dashboard' : '/auth/login',
+        IMG: SKIN_MENU_IMG,
+      },
+    ]
+  }, [profile])
 
   const toggleDrawer = (newOpen: boolean) => {
     setOpen(newOpen)
