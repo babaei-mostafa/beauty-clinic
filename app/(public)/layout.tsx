@@ -5,6 +5,7 @@ import ProviderWrapper from '@/components/layout/provider-wrapper'
 import Footer from '@/components/footer/footer'
 import PageWrapper from '@/components/layout/page-wrapper'
 import Header from '@/components/navbar/header'
+import NProgressBar from '@/components/nprogress-bar/nprogress-bar'
 import ThemeModeBtn from '@/components/theme-mode-btn'
 import HomeTopImage from '@/components/home/top-image'
 import AuthVerifier from '@/components/auth/auth-verifier'
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <NProgressBar />
         <ProviderWrapper>
           <PageWrapper>
             <div className="flex min-h-screen flex-col">
