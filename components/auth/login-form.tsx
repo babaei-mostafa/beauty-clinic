@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import MuiLink from '@mui/material/Link'
@@ -80,12 +81,21 @@ export default function LoginForm() {
                 <Grid size={{ xs: 12 }}>
                   <CustomTextField name="password" label="Password" inputType="password" />
                 </Grid>
+                <MuiLink
+                  component={Link}
+                  href="/auth/reset-password"
+
+                  underline="hover"
+                >
+                  Forgot passwrod?
+                </MuiLink>
                 <Grid size={12}>
                   <ButtonWithLoader isLoading={isPending} fullWidth>
                     Log In
                   </ButtonWithLoader>
                 </Grid>
               </Grid>
+
               <Typography>
                 Don&apos;t have an account?{' '}
                 <MuiLink
