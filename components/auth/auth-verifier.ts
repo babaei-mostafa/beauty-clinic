@@ -8,7 +8,7 @@ import { useHasSessionQuery, useVerifyQuery } from '@/hooks/react-query/auth/aut
 // ====================|| AUTH VERIFIER ||==================== //
 
 export default function AuthVerifier() {
-  const { login, logout } = useAuthStore((state: IAuthState) => state)
+  const { setProfile, logout } = useAuthStore((state: IAuthState) => state)
   const { data: sessionData, isLoading: sessionLoading } = useHasSessionQuery()
   const {
     data: verifyData,
@@ -27,6 +27,6 @@ export default function AuthVerifier() {
     if (verifyError || !verifyData?.valid) {
       logout()
     }
-  }, [verifyError, verifyLoading, verifyData, login, logout, sessionData, sessionLoading])
+  }, [verifyError, verifyLoading, verifyData, setProfile, logout, sessionData, sessionLoading])
   return null
 }

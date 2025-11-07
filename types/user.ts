@@ -8,6 +8,8 @@ export interface IUserDocument extends Document {
   first_name: string
   last_name: string
   role: string
+  resetPasswordToken: string
+  resetPasswordExpires: Date
 }
 
 export interface IUserProfile {

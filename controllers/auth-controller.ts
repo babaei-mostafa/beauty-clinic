@@ -95,3 +95,13 @@ export async function verify(req: NextRequest) {
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
 }
+
+export async function forgotPassword(req: NextRequest) {
+  try {
+    const body = await req.json()
+    const { email } = body
+    
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 })
+  }
+}

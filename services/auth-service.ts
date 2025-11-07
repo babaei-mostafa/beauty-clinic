@@ -5,6 +5,9 @@ import { signAccessToken, signRefreshToken, verifyRefreshToken } from '@/lib/jwt
 import { connectDB } from '@/lib/db'
 import { IUserDocument } from '@/types/user'
 import { NextRequest } from 'next/server'
+import { generateResetToken } from '@/lib/reset-token'
+import { sendEmail } from '@/lib/mailer'
+import { renderResetPassword } from '@/lib/email-templates'
 
 export const authService = {
   async signup({
@@ -102,5 +105,35 @@ export const authService = {
       },
       token: newAccessToken,
     }
+  },
+
+  async forgotPassword({ email }: { email: string }) {
+    connectDB()
+
+    const normalizedEmail = email.toLocaleLowerCase().trim()
+    const user = await User.findOne({ email: normalizedEmail })
+
+    if (!user) return
+
+    const { token, hash } = generateResetToken()
+    const expires = new Date(Date.now() + 1000 * 60 * 60)
+
+    user.resetPasswordToken = hash
+    user.resetPasswordExpires = expires
+    await user.save()
+
+    const base =
+      process.env.NEXT_PUBLIC_APP_URL || process.env.NEXTAUTH_URL || 'http://localhost:3000'
+    const resetUrl = `${base}/reset-password?token=${token}&id=${user._id}`
+
+    // Build email content using template renderer
+    const { subject, html, text } = renderResetPassword({
+      name: user.first_name || user.username,
+      resetUrl,
+    })
+
+    // Send email
+    await sendEmail({ to: user.email, subject, html, text })
+    return
   },
 }

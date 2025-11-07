@@ -12,6 +12,8 @@ const userSchema = new Schema<IUserDocument>(
       type: String,
       enum: ['user', 'client', 'staff', 'admin', 'super_admin'],
     },
+    resetPasswordToken: {type: String},
+    resetPasswordExpires: {type: Date}
   },
   { timestamps: true }
 )
