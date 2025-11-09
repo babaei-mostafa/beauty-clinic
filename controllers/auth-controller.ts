@@ -100,7 +100,7 @@ export async function forgotPassword(req: NextRequest) {
   try {
     const body = await req.json()
     const { email } = body
-    
+    const result = await authService.forgotPassword({ email })
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 })
   }

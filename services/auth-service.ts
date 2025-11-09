@@ -132,6 +132,8 @@ export const authService = {
       resetUrl,
     })
 
+    console.log('subject is: ', subject)
+
     // Send email
     await sendEmail({ to: user.email, subject, html, text })
     return

@@ -1,0 +1,38 @@
+@baseUrl = http://localhost:3000/api
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGZhZGRiYjFjZjY0NzUyOWI1MWQyYzQiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjE1NzYzMTgsImV4cCI6MTc2MTU3OTkxOH0.YHS99nU23GGAr-UeJKS78sTmlaCvqSoi6WtC7DFq6EQ
+
+# ====================|| PUBLIC USERS API ||====================
+
+### Sign Up
+POST {{baseUrl}}/auth/signup
+Content-Type: application/json
+
+{
+    "username": "bbb",
+    "first_name": "Michael",
+    "last_name": "Bauer",
+    "email": "b@gmail.com",
+    "password": "123",
+    "role": "admin"
+}
+
+###
+
+### Log In
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "b@gmail.com",
+    "password": "123"
+}
+
+###
+
+### Verify
+GET {{baseUrl}}/auth/verify
+Content-Type: application/json
+Authorization: `Bearer {{accessToken}}`
+###
+
+
