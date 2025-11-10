@@ -100,8 +100,19 @@ export async function forgotPassword(req: NextRequest) {
   try {
     const body = await req.json()
     const { email } = body
-    const result = await authService.forgotPassword({ email })
+
+    // Always return the same message (prevents user enumeration)
+    await authService.forgotPassword({ email })
+
+    return NextResponse.json(
+      { message: 'If an account with that email exists, we sent password reset instructions.' },
+      { status: 200 }
+    )
   } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 })
+    console.error('forgotPassword controller error', err)
+    return NextResponse.json(
+      { message: 'If an account with that email exists, we sent password reset instructions.' },
+      { status: 200 }
+    )
   }
 }

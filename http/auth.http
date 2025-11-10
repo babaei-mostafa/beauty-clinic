@@ -8,10 +8,10 @@ POST {{baseUrl}}/auth/signup
 Content-Type: application/json
 
 {
-    "username": "bbb",
-    "first_name": "Michael",
-    "last_name": "Bauer",
-    "email": "b@gmail.com",
+    "username": "mossi",
+    "first_name": "Mostafa",
+    "last_name": "Babaei",
+    "email": "mostafa.bsh@gmail.com",
     "password": "123",
     "role": "admin"
 }
@@ -33,6 +33,16 @@ Content-Type: application/json
 GET {{baseUrl}}/auth/verify
 Content-Type: application/json
 Authorization: `Bearer {{accessToken}}`
+###
+
+### Forgot Password
+POST {{baseUrl}}/auth/forgot-password
+Content-Type: application/json
+
+{
+    "email": "mostafa.bsh@gmail.com"
+}
+
 ###
 
 

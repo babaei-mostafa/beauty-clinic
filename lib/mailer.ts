@@ -8,12 +8,12 @@ interface ISendMailOptions {
 }
 
 const transporter = nodemailer.createTransport({
-  host: process.env.STMP_HOST,
-  port: +(process.env.STMP_PORT || 587),
-  secure: process.env.STMP_SECURE === 'true',
+  host: process.env.SMTP_HOST,
+  port: +(process.env.SMTP_PORT || 587),
+  secure: process.env.SMTP_SECURE === 'true',
   auth: {
-    user: process.env.STMP_USER,
-    pass: process.env.STMP_PASS,
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
   },
 })
 

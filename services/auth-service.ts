@@ -83,7 +83,7 @@ export const authService = {
   },
 
   async refresh(req: NextRequest) {
-    connectDB()
+    await connectDB()
 
     const refresh = req.cookies.get('refresh_token')?.value
     if (!refresh) throw new Error('No refresh token')
@@ -108,12 +108,15 @@ export const authService = {
   },
 
   async forgotPassword({ email }: { email: string }) {
-    connectDB()
+    await connectDB()
 
-    const normalizedEmail = email.toLocaleLowerCase().trim()
+    const normalizedEmail = email.toLowerCase().trim()
     const user = await User.findOne({ email: normalizedEmail })
 
-    if (!user) return
+    // Always return the same result to the caller (don't reveal whether a user exists)
+    if (!user) {
+      return { ok: true }
+    }
 
     const { token, hash } = generateResetToken()
     const expires = new Date(Date.now() + 1000 * 60 * 60)
@@ -132,10 +135,13 @@ export const authService = {
       resetUrl,
     })
 
-    console.log('subject is: ', subject)
+    // Send email but don't fail the request for the user
+    try {
+      await sendEmail({ to: user.email, subject, html, text })
+    } catch (mailErr: any) {
+      console.log('forgotPassword: sendEmail failed', mailErr)
+    }
 
-    // Send email
-    await sendEmail({ to: user.email, subject, html, text })
-    return
+    return { ok: true }
   },
 }
