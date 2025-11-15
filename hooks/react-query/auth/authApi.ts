@@ -37,3 +37,9 @@ export const hasSession = async (): Promise<IHasSessionRes> => {
   const { data } = await apiClient.get(url)
   return data
 }
+
+export const forgotPassword = async ({ email }: { email: string }): Promise<any> => {
+  const url = `/api/auth/forgot-password`
+  const { data } = await apiClient.post(url, { email })
+  return data
+}

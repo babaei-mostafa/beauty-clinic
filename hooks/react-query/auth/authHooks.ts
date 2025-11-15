@@ -6,7 +6,7 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from '@tanstack/react-query'
-import { hasSession, login, logout, signup, verify } from './authApi'
+import { forgotPassword, hasSession, login, logout, signup, verify } from './authApi'
 import { AxiosError } from 'axios'
 
 export const useLoginMutation = (options?: MutationOptions<ILoginRes, AxiosError, ILoginReq>) => {
@@ -53,5 +53,16 @@ export const useHasSessionQuery = () => {
   return useQuery({
     queryKey,
     queryFn: () => hasSession(),
+  })
+}
+
+export const useForgotPasswordMutation = (
+  options: MutationOptions<any, AxiosError, { email: string }>
+) => {
+  const mutationKey = [`/auth/forgot-password`]
+  return useMutation({
+    mutationKey,
+    mutationFn: ({ email }: { email: string }) => forgotPassword({ email }),
+    ...options,
   })
 }
