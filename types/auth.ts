@@ -36,3 +36,11 @@ export interface IVerifyRes {
 export interface IHasSessionRes {
   hasSession: boolean
 }
+
+export interface IForgotPasswordReq {
+  email: string
+}
+
+export interface IForgotPasswordRes {
+  message: string
+}

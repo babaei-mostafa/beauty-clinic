@@ -1,5 +1,7 @@
 import apiClient from '@/lib/apiClient'
 import {
+  IForgotPasswordReq,
+  IForgotPasswordRes,
   IHasSessionRes,
   ILoginReq,
   ILoginRes,
@@ -38,7 +40,9 @@ export const hasSession = async (): Promise<IHasSessionRes> => {
   return data
 }
 
-export const forgotPassword = async ({ email }: { email: string }): Promise<any> => {
+export const forgotPassword = async ({
+  email,
+}: IForgotPasswordReq): Promise<IForgotPasswordRes> => {
   const url = `/api/auth/forgot-password`
   const { data } = await apiClient.post(url, { email })
   return data

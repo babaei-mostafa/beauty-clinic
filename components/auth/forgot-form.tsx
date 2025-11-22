@@ -17,14 +17,14 @@ import ButtonWithLoader from '@/components/UI/button/btn-with-loader'
 import { forgotPasswordSchema, loginSchema } from '@/lib/schemas/auth'
 import AuthLayout from './auth-layout'
 import { useForgotPasswordMutation } from '../../hooks/react-query/auth/authHooks'
+import { IForgotPasswordRes } from '@/types/auth'
 
 // ====================|| FORGOT PASSWORD FORM ||==================== //
 
 export default function ForgotPasswordForm() {
-
   const { mutate: forgotPassword, isPending } = useForgotPasswordMutation({
-    onSuccess: () => {
-      enqueueSnackbar('Please check your email', { variant: 'success' })
+    onSuccess: (data: IForgotPasswordRes) => {
+      enqueueSnackbar(data.message, { variant: 'success' })
     },
     onError: (error: any) => {
       enqueueSnackbar(getApiErrorMessage(error), { variant: 'error' })
@@ -38,7 +38,7 @@ export default function ForgotPasswordForm() {
         Provide the email address associated with your account to recover your password.
       </Typography>
       <Formik
-        initialValues={{email: ""}}
+        initialValues={{ email: '' }}
         validationSchema={toFormikValidationSchema(forgotPasswordSchema)}
         onSubmit={(values) => {
           forgotPassword(values)

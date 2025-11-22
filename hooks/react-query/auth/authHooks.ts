@@ -1,4 +1,12 @@
-import { ILoginReq, ILoginRes, ILogoutRes, ISignupReq, IVerifyRes } from '@/types/auth'
+import {
+  IForgotPasswordReq,
+  IForgotPasswordRes,
+  ILoginReq,
+  ILoginRes,
+  ILogoutRes,
+  ISignupReq,
+  IVerifyRes,
+} from '@/types/auth'
 import {
   MutationOptions,
   useMutation,
@@ -57,12 +65,12 @@ export const useHasSessionQuery = () => {
 }
 
 export const useForgotPasswordMutation = (
-  options: MutationOptions<any, AxiosError, { email: string }>
+  options: MutationOptions<IForgotPasswordRes, AxiosError, IForgotPasswordReq>
 ) => {
   const mutationKey = [`/auth/forgot-password`]
   return useMutation({
     mutationKey,
-    mutationFn: ({ email }: { email: string }) => forgotPassword({ email }),
+    mutationFn: ({ email }: IForgotPasswordReq) => forgotPassword({ email }),
     ...options,
   })
 }
