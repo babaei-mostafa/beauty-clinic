@@ -9,6 +9,7 @@ import NProgressBar from '@/components/nprogress-bar/nprogress-bar'
 import ThemeModeBtn from '@/components/theme-mode-btn'
 import HomeTopImage from '@/components/home/top-image'
 import AuthVerifier from '@/components/auth/auth-verifier'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -23,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <NProgressBar />
+        <Suspense>
+          <NProgressBar />
+        </Suspense>
         <ProviderWrapper>
           <PageWrapper>
             <div className="flex min-h-screen flex-col">

@@ -4,6 +4,8 @@ import '@/styles/globals.css'
 import ProviderWrapper from '@/components/layout/provider-wrapper'
 import PageWrapper from '@/components/layout/page-wrapper'
 import DashboardLayout from '@/components/dashboard/layout/dash-layout'
+import { Suspense } from 'react'
+import NProgressBar from '@/components/nprogress-bar/nprogress-bar'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,6 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Suspense>
+          <NProgressBar />
+        </Suspense>
         <ProviderWrapper>
           <PageWrapper>
             <DashboardLayout>

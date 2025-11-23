@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 import Stack from '@mui/material/Stack'
