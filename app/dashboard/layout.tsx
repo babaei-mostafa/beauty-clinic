@@ -1,10 +1,10 @@
+import { Suspense } from 'react'
 import type { Metadata } from 'next'
 
 import '@/styles/globals.css'
 import ProviderWrapper from '@/components/layout/provider-wrapper'
 import PageWrapper from '@/components/layout/page-wrapper'
 import DashboardLayout from '@/components/dashboard/layout/dash-layout'
-import { Suspense } from 'react'
 import NProgressBar from '@/components/nprogress-bar/nprogress-bar'
 
 export const metadata: Metadata = {
