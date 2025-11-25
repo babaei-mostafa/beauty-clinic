@@ -19,6 +19,7 @@ import DashboardSidebarHeaderItem from './sidebar-header-item'
 import { getDrawerSxTransitionMixin, getDrawerWidthTransitionMixin } from './mixins'
 import DashboardSidebarDividerItem from './sidebar-divider-item'
 import DashboardSidebarContext from '@/contexts/dash-sidebar-context'
+import { dashExampleItems, dashMainItems } from '../constants/dashMenu'
 
 export interface DashboardSidebarProps {
   expanded?: boolean
@@ -127,57 +128,58 @@ export default function DashboardSidebar({
             }}
           >
             <DashboardSidebarHeaderItem>Main items</DashboardSidebarHeaderItem>
-            <DashboardSidebarPageItem
-              id="employees"
-              title="Employees"
-              icon={<PersonIcon />}
-              href="/employees"
-              //   selected={!!matchPath('/employees/*', pathname) || pathname === '/'}
-            />
+            {dashMainItems.map((item) => (
+              <DashboardSidebarPageItem
+                key={`dashboard-main-items-${item.id}`}
+                id={item.id}
+                title={item.title}
+                icon={<item.Icon />}
+                href={item.href}
+                //   selected={!!matchPath('/employees/*', pathname) || pathname === '/'}
+              />
+            ))}
+
             <DashboardSidebarDividerItem />
             <DashboardSidebarHeaderItem>Example items</DashboardSidebarHeaderItem>
-            <DashboardSidebarPageItem
-              id="reports"
-              title="Reports"
-              icon={<BarChartIcon />}
-              href="/reports"
-              //   selected={!!matchPath('/reports', pathname)}
-              //   defaultExpanded={!!matchPath('/reports', pathname)}
-              expanded={expandedItemIds.includes('reports')}
-              nestedNavigation={
-                <List
-                  dense
-                  sx={{
-                    padding: 0,
-                    my: 1,
-                    pl: mini ? 0 : 1,
-                    minWidth: 240,
-                  }}
-                >
-                  <DashboardSidebarPageItem
-                    id="sales"
-                    title="Sales"
-                    icon={<DescriptionIcon />}
-                    href="/reports/sales"
-                    // selected={!!matchPath('/reports/sales', pathname)}
-                  />
-                  <DashboardSidebarPageItem
-                    id="traffic"
-                    title="Traffic"
-                    icon={<DescriptionIcon />}
-                    href="/reports/traffic"
-                    // selected={!!matchPath('/reports/traffic', pathname)}
-                  />
-                </List>
-              }
-            />
-            <DashboardSidebarPageItem
-              id="integrations"
-              title="Integrations"
-              icon={<LayersIcon />}
-              href="/integrations"
-              //   selected={!!matchPath('/integrations', pathname)}
-            />
+            {dashExampleItems.map((item) => {
+              const hasChildren = Array.isArray(item.children) && item.children.length > 0
+
+              return (
+                <DashboardSidebarPageItem
+                  key={`dashboard-example-items-${item.id}`}
+                  id={item.id}
+                  title={item.title}
+                  icon={item.Icon ? <item.Icon /> : undefined}
+                  href={item.href ?? '#'}
+                  expanded={expandedItemIds.includes(item.id)}
+                  nestedNavigation={
+                    hasChildren ? (
+                      <List
+                        dense
+                        sx={{
+                          padding: 0,
+                          my: 1,
+                          pl: mini ? 0 : 1,
+                          minWidth: 240,
+                        }}
+                      >
+                        {item.children!.map((child) => (
+                          <DashboardSidebarPageItem
+                            key={`dashboard-example-child-${child.id}`}
+                            id={child.id}
+                            title={child.title}
+                            icon={child.Icon ? <child.Icon /> : undefined}
+                            href={child.href ?? '#'}
+                            //   selected={!!matchPath('/reports', pathname)}
+                            //   defaultExpanded={!!matchPath('/reports', pathname)}
+                          />
+                        ))}
+                      </List>
+                    ) : undefined
+                  }
+                />
+              )
+            })}
           </List>
         </Box>
       </React.Fragment>
